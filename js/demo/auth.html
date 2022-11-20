@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Admin panel firebase</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+   <h1>Admin panel firebase</h1>
+    <div id="login">
+      <h3>Login admin</h3>
+     	<div class="form-group">
+  	    <label for="email">Email address:</label>
+  	    <input type="email" class="form-control" id="email" autocomplete="off">
+    	</div>
+    	<div class="form-group">
+  	    <label for="pass">Password:</label>
+  	    <input type="password" class="form-control" id="pass">
+    	</div>
+    </div>
+	  <button type="submit" id="btnLogin" class="btn btn-primary">Login</button>
+	  <button type="submit" id="btnLogout" class="btn btn-danger hidden">logout</button>
+    <hr>
+    <div id="inputdata">
+      <h3>Input Form</h3>
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" class="form-control" id="title" autocomplete="off">
+      </div>
+      <div class="form-group">
+        <label for="desc">desc:</label>
+        <input type="text" class="form-control" id="desc">
+      </div>
+      <button id="btnAddData" class="btn btn-primary">Add</button>
+      <button id="btnEditData" class="btn btn-success">Update</button>
+    </div>
+    <div class="row">
+      <div id="content">
+      </div>
+    </div>
+</div>
+</body>
+
+<script src="https://www.gstatic.com/firebasejs/5.5.7/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAYLfR72YvVWK7NKuYv0i8cZLeOyky_2UI",
+     authDomain: "e-hatid-ac4b8.firebaseapp.com",
+     databaseURL: "https://e-hatid-ac4b8-default-rtdb.firebaseio.com",
+     projectId: "e-hatid-ac4b8",
+     storageBucket: "e-hatid-ac4b8.appspot.com",
+     messagingSenderId: "151893715495",
+     appId: "1:151893715495:web:c66ce45a224b36f0113c02",
+     measurementId: "G-K4WTYXS330"
+  };
+  firebase.initializeApp(config);
+
+  var auth = firebase.auth();
+
+  var email 	= document.getElementById('email');
+  var pass 		= document.getElementById('pass');
+  var btnLogin 	= document.getElementById('btnLogin');
+  var btnLogout = document.getElementById('btnLogout');
+  var formLogin = document.getElementById('login');
+  var formInput = document.getElementById('inputdata');
+
+
+  btnLogin.addEventListener('click', funcLogin);
+  btnLogout.addEventListener('click', funcLogout);
+
+  // Login
+
+  function funcLogin() {
+  	auth.signInWithEmailAndPassword(email.value, pass.value)
+  		.then(function(data){
+  			console.log("the login was successful");
+  			// console.log(data);
+  			// location.reload();
+  		}).catch(function(err){
+  			alert(err)
+  		})
+  }
+
+  //status user
+  auth.onAuthStateChanged(function(user){
+  		if(user) {
+  			//do everthing if user exist.
+  			//this means the user is logged in 
+  			btnLogout.classList.remove('hidden');
+  			btnLogin.classList.add('hidden');
+        formLogin.classList.add('hidden');
+        formInput.classList.remove('hidden');
+  			
+  		} else {
+  			//do everthing if user exist.
+  			//this means the user is logged in 
+  			btnLogout.classList.add('hidden');
+  			btnLogin.classList.remove('hidden');
+        formLogin.classList.remove('hidden');
+        formInput.classList.add('hidden');
+  		}
+  })
+
+  function funcLogout() {
+  	auth.signOut().then(function(){
+  		console.log("You are logged out")
+  	}).catch(function(err){
+  		alert(err)
+  	})
+  }
+
+  // REALTIME DATABASE
+
+  var database  = firebase.database();
+  var blogsRef  = database.ref('blogs');
+
+  //ELements
+
+  var title       = document.getElementById('title');
+  var desc        = document.getElementById('desc');
+  var btnSubmit   = document.getElementById('btnAddData');
+  var btnEdit     = document.getElementById('btnEditData');
+
+  btnSubmit.addEventListener('click', function(){
+    //get timestamp
+      var timeId = + new Date();
+
+      database.ref('blogs/' + timeId).set({
+        title: title.value,
+        desc: desc.value,
+        time : timeId
+      });
+      title.value   = '';
+      desc.value    = '';
+  });
+
+  blogsRef.on('child_added', addData);
+
+  function addData() {
+    // console.log("Data successfully added")
+  }
+
+  //Show the data
+  blogsRef.on('value', showData, showResErr);
+
+  function showData(items) {
+    var content = document.getElementById('content');
+    var data    = '';
+
+    items.forEach(function(item) {
+      console.log(item.val())
+      data += '<div class="col-md-4"> <h2>'+ item.val().title + '</h2> <p>'+ item.val().desc +'</p> <a class="btn btn-danger" href="#" role="button" onclick="removeItem('+item.val().time+')">Delete &raquo;</a> <a class="btn btn-primary" href="#" role="button" onclick="editItem('+item.val().time+')">Edit &raquo;</a> </div>';
+    })
+    content.innerHTML = data;
+  }
+
+  function showResErr() {
+    console.log("error")
+  }
+
+  function removeItem(id) {
+    database.ref('/blogs/'+ id).remove()
+  }
+
+  function editItem(id) {
+    document.getElementById('btnEditData').setAttribute('data-id', id);
+    blogsRef.child(id).once('value', function(item) {
+      title.value = item.val().title
+      desc.value  = item.val().desc
+    })
+  }
+
+  btnEdit.addEventListener('click', function() {
+    var id = document.getElementById('btnEditData').getAttribute('data-id');
+
+    blogsRef.child(id).update({
+      title: title.value,
+      desc: desc.value
+    })
+
+    title.value =  '';
+    desc.value  = '';
+  })
+
+</script>
+</html>

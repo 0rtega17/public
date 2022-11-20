@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Drivers' Archived Data</title>
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/admin.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this page -->
+    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+</head>
+
+<style>
+    @media print {   
+        #notForPrinting{
+            display: none;
+        }
+        #actionDel{
+            display: none;
+        }
+            
+            
+        }
+   
+</style>
+
+<body id="page-top">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+
+                <div class="sidebar-brand-icon">
+                    <img class="logo" src="img/logo.png" style="height:11vh;" />
+                </div>
+
+            </a>
+
+            <li class="nav-item">
+                <!--   
+                    <i class="fa fa-user-circle iconAdmin" style="color:black; font-size: 50px;"></i><br>
+                    <span class="nameAdmin">ADMIN</span>
+
+          Sidebar Toggler (Sidebar) -->
+
+
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item">
+                <a class="nav-link" href="dashboard.html">
+                    <i class="fa fa-home" style="color:black;"></i>
+                    <span>Home</span></a>
+            </li>
+
+
+            <li class="nav-item">
+                <a class="nav-link" href="bookingHistory.html">
+                    <i class="fa fa-history" style="color: black;"></i>
+                    <span>Booking History</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="ManagePassenger.html">
+                    <i class="fa fa-users" style="color:black;"></i>
+                    <span>Manage Passenger</span></a>
+            </li>
+
+
+            <li class="nav-item">
+                <a class="nav-link" href="ManageDriver.html">
+                    <i class="fa fa-id-card" style="color:black;"> </i>
+                    <span>Manage Driver</span></a>
+            </li>
+
+            <li class="nav-item active">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo" style="color: #000;">
+                    <i class="fa fa-archive" style="color:black;"></i>
+                    <span>Archive Data</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-grey py-2 collapse-inner rounded">
+                       
+                        <a class="collapse-item" href="archiveTBDriver.html" style="font-weight: 1000;">Drivers</a>
+                        <a class="collapse-item" href="archiveTB.html" >Passengers</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                <h6 style="color:black;">Setting</h6>
+            </div>
+
+            <li class="nav-item">
+                <a class="nav-link" href="Settings.html">
+                    <i class="fa fa-cog" style="color:black;"></i>
+                    <span>Setting</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <li class="nav-item">
+                <a class="nav-link" href="index.html">
+                    <i class="fas fa-sign-out-alt " style="color:black;"></i>
+                    <span>Logout</span></a>
+            </li>
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle" style="background-color:#F3D849;"></button>
+            </div>
+
+
+        </ul>
+        <!-- End of Sidebar -->
+
+
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin
+
+                                </span>
+                                <i class="fa fa-user-circle" style="color:black; font-size: 30px;"></i>
+
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Profile
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Settings
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Activity Log
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+
+
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </nav>
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h1 mb-2 text-gray-800">Drivers' Archived Data</h1>
+
+
+                    <!-- DataTales Example   style="margin-left: 250px; margin-bottom: -20px;"-->
+                    <div class="card shadow mb-4">
+
+                        <div class="card-body">
+
+                            <div class="d-flex justify-content-end">
+                                <button class="printBtn" type="button" id="printDash" style="position: relative;">
+                                    <i class="fa fa-print" aria-hidden="true" id="printIcon"></i>&nbsp;Print</button>
+                            </div>
+                           
+                            <div class="table-responsive">
+
+
+                                <table class="table table-bordered display" id="dataTable1" width="100%"
+                                    cellspacing="0">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th>No.</th>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th>Email</th>
+                                            <th>Username</th>
+
+                                            <th id="actionDel">Action</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody id="tbody1" class="tbodyColor">
+
+                                    </tbody>
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-ehatid">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; <br> All Rights Reserved. 2022 </span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+
+    <!--Start of the modal for editing-->
+    <!-- Modal -->
+    <div class="modal fade" id="modalTable" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Information</h1>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">X</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="labs">ID:</label>
+                        <input type="text" class="form-control form-control-user" id="pID" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label class="labs">First Name:</label>
+                        <input type="text" class="form-control form-control-user" id="fn">
+                    </div>
+                    <div class="form-group">
+                        <label class="labs">Last Name:</label>
+                        <input type="text" class="form-control form-control-user" id="ln">
+                    </div>
+                    <div class="form-group">
+                        <label class="labs">Email:</label>
+                        <input type="text" class="form-control form-control-user" id="em">
+                    </div>
+                    <div class="form-group">
+                        <label class="labs">Username:</label>
+                        <input type="text" class="form-control form-control-user" id="un">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" id="editBtn" class="btn btn-primary">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <!-- End of Page Wrapper -->
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/admin.min.js"></script>
+    <script src="printThis.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/datatables-demo.js"></script>
+
+    
+
+    <!--Firebase Libraries-->
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-database.js"></script>
+
+     <!-- Firebase -->
+     <script type="module">
+
+
+        var firebaseConfig = {
+            apiKey: "AIzaSyAYLfR72YvVWK7NKuYv0i8cZLeOyky_2UI",
+            authDomain: "e-hatid-ac4b8.firebaseapp.com",
+            databaseURL: "https://e-hatid-ac4b8-default-rtdb.firebaseio.com",
+            projectId: "e-hatid-ac4b8",
+            storageBucket: "e-hatid-ac4b8.appspot.com",
+            messagingSenderId: "151893715495",
+            appId: "1:151893715495:web:c66ce45a224b36f0113c02",
+            measurementId: "G-K4WTYXS330"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+
+
+        var passNo;
+        function SelectAllData() {
+            document.getElementById('tbody1').innerHTML = "";
+            passNo = 0;
+            firebase.database().ref('archievedDrivers').once('value',
+            function(AllRecords)
+            {
+                AllRecords.forEach(
+                    function(CurrentRecord){
+                        var firstName = CurrentRecord.val().first_name;
+                        var lastName = CurrentRecord.val().last_name;
+                        var email = CurrentRecord.val().email;
+                        var username = CurrentRecord.val().username;
+                        var birthdate = CurrentRecord.val().birthdate;
+                        var earnings = CurrentRecord.val().earnings;
+                        var licenseNum = CurrentRecord.val().licenseNum;
+                        var ratings = CurrentRecord.val().ratings;
+                        var phone = CurrentRecord.val().phone;
+
+                        var pID = CurrentRecord.key;
+                    AddItemsToTable(firstName, lastName, email, username, pID, phone, birthdate, earnings, licenseNum, ratings, CurrentRecord.val().password, CurrentRecord.val().plateNum);
+
+            }
+                );
+            });
+        }
+
+        window.onload = SelectAllData;
+
+
+
+        var passList = [];
+
+        function AddItemsToTable(firstName, lastName, email, username, pID, phone, birthdate, earnings, licenseNum, ratings, password, plateNum) {
+            var tbody = document.getElementById('tbody1')
+            var trow = document.createElement("tr");
+            var td1 = document.createElement('td');
+            var td2 = document.createElement('td');
+            var td3 = document.createElement('td');
+            var td4 = document.createElement('td');
+            var td5 = document.createElement('td');
+            var td6 = document.createElement('td');
+
+            passList.push([firstName, lastName, email, username, pID, phone, birthdate, earnings, licenseNum, ratings, password, plateNum]);
+
+
+            td1.innerHTML = ++passNo;
+            td2.innerHTML = firstName;
+            td3.innerHTML = lastName;
+            td5.innerHTML = username;
+            td4.innerHTML = email;
+            td6.innerHTML = pID;
+
+            var actionDiv = document.createElement("div");
+           // actionDiv.innerHTML = '<button data-toggle="modal" data-target="#modalTable" class="actionBtn3" type="button" onclick="FillTboxes(' + passNo + ')"><i class="fas fa-edit " style="color:black;"></i></button>';
+            actionDiv.innerHTML = '<button class="actionBtn" id="notForPrinting" type="button" onclick="archivedboxes(' + passNo + ')"><i class="fas fa-archive " style="color:black;"></i></button>';
+
+            trow.appendChild(td1);
+            trow.appendChild(td2);
+            trow.appendChild(td3);
+            trow.appendChild(td4);
+            trow.appendChild(td5);
+            //trow.appendChild(td6);
+
+            tbody.appendChild(trow);
+            trow.appendChild(actionDiv);
+
+
+        };
+
+
+        var modFirstName = document.getElementById('fn');
+        var modLastName = document.getElementById('ln');
+        var modEmail = document.getElementById('em');
+        var modUsername = document.getElementById('un');
+        var modPassID = document.getElementById('pID');
+        var modPassword='';
+        var modNoPlate="";
+        var modBirthdate='';
+        var modPhoneNum='';
+        var modEarnings='';
+        var modLicenseNum='';
+        var modRatings='';
+
+        editBtn.addEventListener('click', (e) => {
+            firebase.database().ref("archievedPassengers/" + modPassID.value).update(
+                {
+                    // id: modPassID,
+                    first_name: modFirstName.value,
+                    last_name: modLastName.value,
+                    email: modEmail.value,
+                    username: modUsername.value
+                },
+                (error) => {
+                    if (error) {
+                        swal({
+                            title: "Error!",
+                            text: error,
+                            icon: "error",
+                            timer: 4000,
+                            showConfirmButton: false
+                            //button: "Try again",
+                        })
+                    }
+                    else {
+                        swal({
+                            title: "Success!",
+                            text: "The record has successfully loaded back in the list",
+                            icon: "success",
+                            timer: 4000,
+                            showConfirmButton: false
+                            //button: "Try again",
+                        })
+                        SelectAllData();
+                        $("#modalTable").modal('hide');
+
+                    }
+                }
+            )
+        });
+
+        window.FillTboxes = (index) => {
+            if (index == null) {
+                modFirstName.value = "";
+                modLastName.value = "";
+                modEmail.value = "";
+                modUsername.value = "";
+                modPassID.value = "";
+            }
+            else {
+                --index;
+                modFirstName.value = passList[index][0];
+                modLastName.value = passList[index][1];
+                modEmail.value = passList[index][2];
+                modUsername.value = passList[index][3];
+                modPassID.value = passList[index][4];
+            }
+
+
+        };
+       window.archivedboxes=(index)=>{
+    if (index == null) {
+        modFirstName.value = "";
+        modLastName.value = "";
+        modEmail.value = "";
+        modUsername.value = "";
+        modPassID.value = "";
+    }
+    else {
+        --index;
+        modFirstName.value = passList[index][0];
+        modLastName.value = passList[index][1];
+        modEmail.value = passList[index][2];
+        modUsername.value = passList[index][3];
+        modPassID.value = passList[index][4];
+        
+        modPhoneNum = passList[index][5];
+        modBirthdate = passList[index][6];
+        modEarnings = passList[index][7];
+        modLicenseNum = passList[index][8];
+        modRatings = passList[index][9];
+
+        modPassword = passList[index][10];
+        modNoPlate = passList[index][11];
+       
+    }
+    firebase.database().ref("drivers/" + modPassID.value).set(
+        {
+            // id: modPassID,
+            first_name: modFirstName.value,
+            last_name: modLastName.value,
+            email: modEmail.value,
+            username: modUsername.value,
+            id: modPassID.value,
+            phone: modPhoneNum,
+            birthdate: modBirthdate,
+            earnings: modEarnings,
+            licenseNum: modLicenseNum,
+            ratings: modRatings,
+            password: modPassword,
+            plateNum: modNoPlate
+        },
+        (error) => {
+            if (error) {
+                        swal({
+                            title: "Error!",
+                            text: error,
+                            icon: "error",
+                            timer: 4000,
+                            showConfirmButton: false
+                            //button: "Try again",
+                        })
+            }
+            else {
+                firebase.database().ref("archievedDrivers/" + modPassID.value).remove();
+                        swal({
+                            title: "Success!",
+                            text: "The record has successfully loaded back in the list",
+                            icon: "success",
+                            timer: 4000,
+                            showConfirmButton: false
+                            //button: "Try again",
+                        });
+                SelectAllData();
+            }
+        }
+    )
+}
+
+/*
+const printBtn = document.getElementById('printDash');
+
+printBtn.addEventListener('click', function(){
+    print();
+})*/
+
+        $("#printDash").click(function(){
+            $('#dataTable1').printThis();
+        });
+
+
+    </script>
+
+
+
+    <!--
+    
+           
+
+
+
+<button class="actionBtn3" type="button"><img src="img/edit.png" style="height: 15px;"></button> 
+<button class="actionBtn" type="button"><img src="img/eye.png" style="height: 15px;"></button> 
+<button class="actionBtn2" type="button"><img src="img/trash.png" style="height: 15px;"></button>
+-->
+</body>
+
+
+
+</html>

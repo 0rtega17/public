@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Dashboard</title>
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/admin.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this page -->
+    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+</head>
+<style>
+    @media print {
+        body *{
+            visibility: hidden;
+        }
+        #content *{
+            visibility: visible;
+            top: -25%;
+            
+            
+        }
+        #printDash{
+            visibility: hidden;
+        }
+        #printIcon{
+            visibility: hidden;
+        }
+        #visualization *{
+            top: 5%;
+        }
+        #cardsDash *{
+            top: 15%!important;
+        }
+        #areasChart{
+            top: 2%;
+            position: relative;
+        }
+        #donutChart{
+            visibility: visible;
+            position: absolute;
+            top: 105%;
+            width: fit-content;
+            
+        }
+
+        #scroll {
+            height: 250px;
+            overflow:auto;
+            overflow-x:hidden;
+        }
+
+
+
+
+    }
+</style>
+
+<body id="page-top">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard.html">
+            
+                <div class="sidebar-brand-icon">
+                    <img class="logo" src="img/logo.png" style="height:80px;" />
+                </div>
+                   
+            </a>
+
+          
+
+            <li class="nav-item">
+                
+
+            <!-- 
+                
+                    <i class="fa fa-user-circle iconAdmin" style="color:black; font-size: 50px;"></i><br>
+                    <span class="nameAdmin">ADMIN</span>
+                Sidebar Toggler (Sidebar) 
+            
+                 <hr class="sidebar-divider my-0">
+            -->
+
+              
+           
+           
+            </li>
+
+            <!-- Divider -->
+           
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href="dashboard.html">
+                    <i class="fa fa-home" style="color:black;"></i>
+                    <span>Home</span></a>
+            </li>
+
+
+            <li class="nav-item">
+                <a class="nav-link" href="bookingHistory.html">
+                    <i class="fa fa-history" style="color: black;"></i>
+                    <span >Booking History</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="ManagePassenger.html">
+                    <i class="fa fa-users" style="color:black;"></i>
+                    <span>Manage Passenger</span></a>
+            </li>
+
+
+             <li class="nav-item">
+                <a class="nav-link" href="ManageDriver.html">
+                    <i class="fa fa-id-card" style="color:black;"> </i>
+                    <span>Manage Driver</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo" style="color: #000;">
+                    <i class="fa fa-archive" style="color:black;"></i>
+                    <span>Archive Data</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-grey py-2 collapse-inner rounded">
+                       
+                        <a class="collapse-item" href="archiveTBDriver.html">Drivers</a>
+                        <a class="collapse-item" href="archiveTB.html">Passengers</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                <h6 style="color:black;">Setting</h6>
+            </div>
+
+            <li class="nav-item">
+                <a class="nav-link" href="Settings.html">
+                    <i class="fa fa-cog" style="color:black;"></i>
+                    <span>Setting</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <li class="nav-item">
+                <a class="nav-link" href="index.html">
+                    <i class="fas fa-sign-out-alt " style="color:black;"></i>
+                    <span>Logout</span></a>
+            </li>
+            
+            <hr class="sidebar-divider d-none d-md-block">
+
+              <!-- Sidebar Toggler (Sidebar) -->
+              <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle" style="background-color:#F3D849;"></button>
+            </div>
+
+        </ul>
+        <!-- End of Sidebar -->
+
+        
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                      <!-- Sidebar Toggle (Topbar) -->
+                      <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                  
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin
+                                    
+                                </span>
+                                <i class="fa fa-user-circle" style="color:black; font-size: 30px;"></i>
+                                
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                            aria-labelledby="userDropdown">
+                            <a class="dropdown-item" href="profile.html">
+                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Profile
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Logout
+                            </a>
+
+
+                        </div>
+                        </li>
+
+                    </ul>
+
+                </nav>
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid" id="try_print">
+
+                    <div class="d-flex justify-content-between">
+                        <h1 class="h1 mb-2 text-gray-800">Dashboard</h1>
+                    <button class="printBtn" type="button" id="printDash" style="max-width: 100%;"><i class="fa fa-print" aria-hidden="true" id="printIcon"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Print</button>
+                    </div>
+                    
+                    
+                    <!-- Content Row -->
+                    <div class="row" id="cardsDash">
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                        <center>    
+
+                                             <div class="col-auto">
+                                            <i class="fas fa-check-square fa-2x text-gray-300"></i>
+                                        </div>  
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                                            
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                                Total Completed Bookings</div>
+                                        </center>
+                                        </div>
+
+                                     
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                       
+                        <!-- Registered Drivers Card -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-info shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <center>
+                                           
+                                                <div class="col-auto">
+                                                    <i class="fas fa-check-square fa-2x text-gray-300"></i>
+                                                </div>
+                                                                                             
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800"><h2 id="try_drive1"></h2></div>
+                                                                                        
+                                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1" style="letter-spacing: 1.2px;">Total Successful Booking
+                                                </div>
+                                            </center>
+                                        </div>
+                                 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+
+                        <!-- Registered Drivers Card -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-info shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <center>
+                                           
+                                                <div class="col-auto">
+                                                    <i class="fas fa-id-card fa-2x text-gray-300"></i>
+                                                </div>
+                                                                                             
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800"><h2 id="try_drive"></h2></div>
+                                                                                        
+                                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1" style="letter-spacing: 1.2px;">Registered Drivers
+                                                </div>
+                                            </center>
+                                        </div>
+                                 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Registered Users Card  -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-warning shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <center>
+                                            <div class="col-auto">
+                                              <i class="fas fa-users fa-2x text-gray-300"></i>  
+                                            </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" ><h2 id="try_pass"></h2></div>
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1" style="letter-spacing: 1.2px;">
+                                                Registered Passengers</div>
+                                            </center>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid" >
+                <!-- Content Row -->
+                <div class="row">
+
+                    <div class="col-xl-8 col-lg-7" id="visualization">
+
+                        <!-- Area Chart -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-gray-700" style="color: black;">On demand and off peak hours</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-area">
+                                    <canvas id="myAreaChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bar Chart -->
+                        <div class="card shadow mb-4" style="height: 48%;">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-gray-700">Daily Bookings</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-bar">
+                                    <canvas id="myBarChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <!--Donut Chart-->
+
+                    <div class="col-xl-4 col-lg-5" id="donutChart">
+                        <div class="card shadow mb-4">
+                            <!-- Card Header - Dropdown -->
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-gray-700">Total Users</h6>
+                            </div>
+                            <!-- Card Body -->
+                            <div class="card-body">
+                                <div class="chart-pie pt-4">
+                                    <canvas id="myPieChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                
+
+
+                  <!--Officer's Card-->
+                        <div class="card shadow mb-4"  >
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-gray-700">TODA G5 Officers</h6>
+                            </div>
+                            <!-- Card Body -->
+                            <div class="card-body" id="scroll">
+                               
+                                <ul class="list-group list-group-flush" id="scroll">
+                                    <li class="list-group-item">
+                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400" style="left:2%; top: 27%; font-size: 40px; position: absolute;"></i>
+                                        <ul type="none">
+                                        <li><label style="font-size: 18px; font-weight:900;">President</label></li>
+                                        <li style="margin-top: -15px;"><label style="font-size: 12px; top:-150%">Jury Alibusa</label></li>
+                                        <li style="margin-top: -12px;"><label style="font-size: 12px;">09167890123</label></li>
+                                        </ul>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400" style="left:2%; top: 27%; font-size: 40px; position: absolute;"></i>
+                                        <ul type="none">
+                                           
+                                            <li><label style="font-size: 18px; font-weight:900;">Vice President</label></li>
+                                            <li style="margin-top: -15px;"><label style="font-size: 12px; top:-150%">Jury Alibusa</label></li>
+                                            <li style="margin-top: -12px;"><label style="font-size: 12px;">09167890123</label></li>
+                                        </ul>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400" style="left:2%; top: 27%; font-size: 40px; position: absolute;"></i>
+                                        <ul type="none">
+                                        <li><label style="font-size: 18px; font-weight:900;">Secretary</label></li>
+                                        <li style="margin-top: -15px;"><label style="font-size: 12px; top:-150%">Jury Alibusa</label></li>
+                                        <li style="margin-top: -12px;"><label style="font-size: 12px;">09167890123</label></li>
+                                        </ul>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400" style="left:2%; top: 27%; font-size: 40px; position: absolute;"></i>
+                                        <ul type="none">
+                                            <li><label style="font-size: 18px; font-weight:900;">Treasurer</label></li>
+                                            <li style="margin-top: -15px;"><label style="font-size: 12px; top:-150%">Jury Alibusa</label></li>
+                                            <li style="margin-top: -12px;"><label style="font-size: 12px;">09167890123</label></li>
+                                            </ul>
+                                    </li>
+
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /.container-fluid 
+            
+                                    <li class="list-group-item">
+                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400" style="left:2%; top: 27%; font-size: 40px; position: absolute;"></i>
+                                        <ul type="none">
+                                            <li><label style="font-size: 18px; font-weight:900;">Auditor</label></li>
+                                            <li style="margin-top: -15px;"><label style="font-size: 12px; top:-150%">Jury Alibusa</label></li>
+                                            <li style="margin-top: -12px;"><label style="font-size: 12px;">09167890123</label></li>
+                                            </ul>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400" style="left:2%; top: 27%; font-size: 40px; position: absolute;"></i>
+                                        <ul type="none">
+                                            <li><label style="font-size: 18px; font-weight:900;">P.R.O.</label></li>
+                                            <li style="margin-top: -15px;"><label style="font-size: 12px; top:-150%">Jury Alibusa</label></li>
+                                            <li style="margin-top: -12px;"><label style="font-size: 12px;">09167890123</label></li>
+                                            </ul>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400" style="left:2%; top: 27%; font-size: 40px; position: absolute;"></i>
+                                        <ul type="none">
+                                            <li><label style="font-size: 18px; font-weight:900;">Sergeant at Arms</label></li>
+                                            <li style="margin-top: -15px;"><label style="font-size: 12px; top:-150%">Jury Alibusa</label></li>
+                                            <li style="margin-top: -12px;"><label style="font-size: 12px;">09167890123</label></li>
+                                            </ul>
+                                    </li>
+            -->
+           
+            <!-- End of Main Content -->
+        <div>
+            <!-- Footer -->
+            <footer class="sticky-footer bg-ehatid">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; <br> All Rights Reserved. 2022 </span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+            
+        </div>
+       
+
+
+        <!-- End of Content Wrapper -->
+
+    </div>
+
+    <!--Modal for Logout-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary" href="index.html">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+     
+    <!-- End of Page Wrapper -->
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/admin.min.js"></script>
+    <script src="printThis.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/datatables-demo.js"></script>
+
+      <!-- Page level plugins -->
+      <script src="vendor/chart.js/Chart.min.js"></script>
+
+      <!-- Page level custom scripts -->
+      <script type="module" src="js/demo/chart-area-demo.js"></script>
+      <script type="module" src="js/demo/chart-pie-demo.js"></script>
+      <script type="module" src="js/demo/chart-bar-demo.js"></script>    
+
+     <!-- Firebase -->
+     <script src="https://www.gstatic.com/firebasejs/5.5.7/firebase.js"></script>
+     <!-- Firebase -->
+<script>
+   // Your web app's Firebase configuration
+  var config = {
+    apiKey: "AIzaSyAYLfR72YvVWK7NKuYv0i8cZLeOyky_2UI",
+    authDomain: "e-hatid-ac4b8.firebaseapp.com",
+    databaseURL: "https://e-hatid-ac4b8-default-rtdb.firebaseio.com",
+    projectId: "e-hatid-ac4b8",
+    storageBucket: "e-hatid-ac4b8.appspot.com",
+    messagingSenderId: "151893715495",
+    appId: "1:151893715495:web:c66ce45a224b36f0113c02",
+    measurementId: "G-K4WTYXS330"
+  };
+
+  // Initialize Firebase
+  //firebase.initializeApp(firebaseConfig);
+  firebase.initializeApp(config);
+  
+  // Get a reference to the database service
+  const db = firebase.database();
+
+  function labas(){
+    //const dbRef = ref(database,"passengers");
+    //dbRef.once('value', function(snapshot){
+    firebase.database().ref('passengers').once('value', function(snapshot){
+        var count = snapshot.numChildren();
+        //alert(count);   
+        document.getElementById('try_pass').innerHTML = count;
+
+        
+
+    });  
+     
+ };
+
+ function labas2(){
+    //const dbRef = ref(database,"passengers");
+    //dbRef.once('value', function(snapshot){
+    firebase.database().ref('drivers').on('value', function(snapshot){
+        var count = snapshot.numChildren();
+        //alert(count);   
+        document.getElementById('try_drive').innerHTML = count;
+});
+
+firebase.database().ref('passengers').on('value', function(snapshot){
+        var count = snapshot.numChildren();
+        //alert(count);   
+        document.getElementById('try_pass').innerHTML = count;
+
+
+    }); 
+
+firebase.database().ref().child('All Ride Requests').orderByChild("status").equalTo("ended").on('value', function(snapshot){
+    var count = snapshot.numChildren();
+        //alert(count);   
+        document.getElementById('try_drive1').innerHTML = count;
+     
+ });
+ };
+ function labas3()
+ {
+
+ };
+
+
+
+
+ 
+ window.onload = labas2;
+
+/*
+$("#printDash").click(function(){
+
+  });
+
+ $(document).ready(function () {
+    $('#printDash').click(function () {
+        $('#try_print, #visualization').printThis();
+    });
+}); */
+
+const printBtn = document.getElementById('printDash');
+
+printBtn.addEventListener('click', function(){
+    print();
+})
+ 
+</script>
+  <!--
+<button class="actionBtn3" type="button"><img src="img/edit.png" style="height: 15px;"></button> 
+<button class="actionBtn" type="button"><img src="img/eye.png" style="height: 15px;"></button> 
+<button class="actionBtn2" type="button"><img src="img/trash.png" style="height: 15px;"></button>
+-->
+</body>
+
+  
+
+</html>

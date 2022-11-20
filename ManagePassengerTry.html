@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Passengers' Information</title>
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/admin.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this page -->
+    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+</head>
+<style>
+   .tableview{         
+		    height:650px;		    
+            overflow:auto;
+            overflow-x:hidden;
+        }
+        thead{
+            text-align: center;
+            position:sticky;
+            top:0;
+        }   
+        
+     #modalPolicy{
+            height:420px;		    
+            overflow:auto;
+            overflow-x:hidden;
+     }   
+   
+   
+   @media print {  
+        .notForPrinting{
+            display: none;
+        }
+        #actionDel{
+            display: none;
+        }
+            
+            
+        }
+   
+</style>
+
+<body id="page-top">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+
+                <div class="sidebar-brand-icon">
+                    <img class="logo" src="img/logo.png" style="height:80px;" />
+                </div>
+
+            </a>
+
+            <li class="nav-item">
+                <!--   
+                    <i class="fa fa-user-circle iconAdmin" style="color:black; font-size: 50px;"></i><br>
+                    <span class="nameAdmin">ADMIN</span>
+
+          Sidebar Toggler (Sidebar) -->
+
+
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item">
+                <a class="nav-link" href="dashboard.html">
+                    <i class="fa fa-home" style="color:black;"></i>
+                    <span>Home</span></a>
+            </li>
+
+
+            <li class="nav-item">
+                <a class="nav-link" href="bookingHistory.html">
+                    <i class="fa fa-history" style="color: black;"></i>
+                    <span>Booking History</span></a>
+            </li>
+
+            <li class="nav-item active">
+                <a class="nav-link" href="ManagePassenger.html">
+                    <i class="fa fa-users" style="color:black;"></i>
+                    <span>Manage Passenger</span></a>
+            </li>
+
+
+            <li class="nav-item">
+                <a class="nav-link" href="ManageDriver.html">
+                    <i class="fa fa-id-card" style="color:black;"> </i>
+                    <span>Manage Driver</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo" style="color: #000;">
+                    <i class="fa fa-archive" style="color:black;"></i>
+                    <span>Archive Data</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-grey py-2 collapse-inner rounded">
+                       
+                        <a class="collapse-item" href="archiveTBDriver.html">Drivers</a>
+                        <a class="collapse-item" href="archiveTB.html">Passengers</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                <h6 style="color:black;">Setting</h6>
+            </div>
+
+            <li class="nav-item">
+                <a class="nav-link" href="Settings.html">
+                    <i class="fa fa-cog" style="color:black;"></i>
+                    <span>Setting</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <li class="nav-item">
+                <a class="nav-link" href="index.html">
+                    <i class="fas fa-sign-out-alt " style="color:black;"></i>
+                    <span>Logout</span></a>
+            </li>
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle" style="background-color:#F3D849;"></button>
+            </div>
+
+
+        </ul>
+        <!-- End of Sidebar -->
+
+
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin
+
+                                </span>
+                                <i class="fa fa-user-circle" style="color:black; font-size: 30px;"></i>
+
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="profile.html">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Profile
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+
+
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </nav>
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h1 mb-2 text-gray-800">Passengers' Information</h1>
+
+
+                    <!-- DataTales Example   style="margin-left: 250px; margin-bottom: -20px;"-->
+                    <div class="card shadow mb-4">
+                            <div class="table-responsive ">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <div class="d-flex justify-content-start">
+                                            <a data-toggle="modal" data-target="#Registration"><button class="addBtn"
+                                                type="button"><i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                                Add Passenger</button> </a>
+                                        </div>     
+            
+                                        <div class="d-flex justify-content-end">
+                                            <button class="printBtn" type="button" id="printDash">
+                                            <i class="fa fa-print" aria-hidden="true" id="printIcon"></i>&nbsp;Print</button>
+                                        </div>      
+        
+                                    </div>
+                           
+                             <table class="table table-bordered display" id="dataTable1" width="100%"
+                                    cellspacing="0">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th>No.</th>
+                                            <th>Name</th>
+                                            <th>Username</th>
+                                            <th>Email</th>
+                                            <th>Mobile Number</th>
+
+                                            <th id="actionDel" width="12%">Action</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody id="tbody1" class="tbodyColor">
+
+                                    </tbody>
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-ehatid">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; <br> All Rights Reserved. 2022 </span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+
+
+    <!-- Add Passenger Modal-->
+    <div class="modal fade" id="Registration" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true" style="border-radius: 50px !important;  ">
+        <div class="modal-dialog" role="document"  >
+            <div class="modal-content" >
+                <div class="modal-header" style="background-color: #EAC818; ">
+                    <h5 class="modal-title" id="exampleModalLabel"
+                        style="font-weight: bold; color:white; text-align: center; position: absolute; font-size:2.5vh"> <img
+                            src="img/regIcon.png">Register New Passenger</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close" style="position:relative; left: 2.5%;">
+                        <span aria-hidden="true"><img src="img/close.png"></span>
+                    </button>
+                </div>
+                <div class="modal-body container" style="background-color: #FEDF3F;">
+                    <form class="user" id="formReg">
+                        <div class=" form-group row">
+                            <div class=" col-sm-6">
+
+                                <div class="form-group">
+                                    <p class="text-center" style="color:black; font-size: 20px;">Personal Details <i
+                                            class="fa fa-user-circle" aria-hidden="true"></i></p>
+                                    <hr style="position: relative; top:-10px;">
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="text" class="form-control form-control-user" id="first_name"
+                                        placeholder="First Name"  required>
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="text" class="form-control form-control-user" id="last_name"
+                                        placeholder="Last Name"  required>
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="date" class="form-control form-control-user" id="date" 
+                                        required>
+                                </div>
+
+                                <div class="form-group">
+                                    <p class="text-center" style="color:black; font-size: 20px;">Contact Details <i
+                                            class="fa fa-envelope" aria-hidden="true"></i></p>
+                                    <hr style="position: relative; top:-10px; ">
+                                </div>
+
+
+                                <div class="form-group">
+                                    <input type="email" class="form-control form-control-user" id="email"
+                                        placeholder="Email Address"  required>
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="text" class="form-control form-control-user" id="mobileNumber"
+                                        placeholder="Mobile Number" required>
+                                </div>
+
+
+                            </div>
+                            <div class=" col-sm-6">
+
+                                <div class="form-group">
+                                    <p class="text-center" style="color:black; font-size: 20px;">Account Details <i
+                                            class="fa fa-id-card" aria-hidden="true"></i> </p>
+                                    <hr style="position: relative; top:-10px; ">
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="text" class="form-control form-control-user" id="username"
+                                        placeholder="Username"  required>
+                                </div>
+                                <div class="input-group mb-2">
+                                    <input type="password" class="form-control" id="password" style="border-radius: 30px; height: 50px;  font-size: 12px;" type="password" placeholder="Password">
+                                    <i class="far fa-eye" id="togglePassword" onclick="passwordSee()"
+                                    style="cursor: pointer; margin-left: -30px; z-index: 100; margin-top: 18px;"></i>
+                                 </div>
+
+                                <div class="input-group mb-2">
+                                    <input type="password" class="form-control" id="pass2" style="border-radius: 30px; height: 50px;  font-size: 12px;"type="password" placeholder="Retype Password">
+                                    <i class="far fa-eye" id="togglePassword" onclick="passwordSee1()"
+                                    style="cursor: pointer; margin-left: -30px; z-index: 100; margin-top: 18px;"></i>
+                                 </div>
+
+                                <div class="form-group">
+                                    <p class="text-center" style="color:black; font-size: 14px;">By continuing you’re
+                                        indicating that you accept our <a data-toggle="modal" data-target="#terms"><u>Terms of
+                                                Use</u></a> and our <a data-toggle="modal" data-target="#policy"><u>Privacy
+                                                Policy</u> </a></p>
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="reset"
+                                        style="background-color:#F3E8AE; border: none; border-radius: 20px; height: 45px; width: 100%; font-weight:bold;"
+                                        value="Clear">
+                                </div>
+
+                                <div class="form-group">
+
+                                    <button type="button" id="submit" name="submit"
+                                        style="background-color:#59AD6A; border: none; border-radius: 20px; height: 45px; width: 100%; color: white; font-weight: bold;">
+                                        Submit </button>
+                                </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    </div>
+    </div>
+    <!--End of the Modal for adding-->
+    <!--Start of the modal for editing-->
+    <!-- Modal -->
+    <div class="modal fade" id="modalTable" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Life Points</h1>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close" style="position:relative; left: 2.5%;">
+                        <span aria-hidden="true"><img src="img/close.png"></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group" id="idInput">
+                        <label class="labs">ID:</label>
+                        <input type="text" class="form-control form-control-user" id="pID" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label class="labs">Life Points:</label>
+                        <input type="number" class="form-control form-control-user" id="fn" min="1" max="3">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" id="editBtn" class="btn btn-primary">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--Modal for Logout-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Ok</button>
+                
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal for Terms-->
+<div class="modal fade" id="terms" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+<div class="modal-dialog" role="document" style="position:relative; left:-.9%;">
+    <div class="modal-content" >
+        <div class="modal-header" style="background-color: #EAC818;">
+            <h5 class="modal-title" id="exampleModalLabel" style="color: #ffffff;">Terms of Use</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        <div class="modal-body" style="text-align: justify;">
+            <h3 style="font-weight: 900;">E-Hatid</h3> is an Android-based mobile application for tricycle booking to help the residents of Bolbok to have an accessible and convenient mode of transportation via tricycle. This will allow  them to book a tricycle ride in the comfort of their homes without having to worry how they'll get a tricycle ride. This is available for use to help them save their time and effort without havingto walk far going to the terminal. This application also contains in-app purchases such as the loading of life points in order to take your account back. You'll just need to go to the TODA G5 in Lourdes Terminal and ask for their policy and prices depending on how much life points you will be needing.
+
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">Ok</button>
+            
+        </div>
+    </div>
+</div>
+</div>
+<!--Modal for Policy-->
+<div class="modal fade" id="policy" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+<div class="modal-dialog" role="document" style="position:relative; ">
+    <div class="modal-content" >
+        <div class="modal-header" style="background-color: #EAC818;">
+            <h5 class="modal-title" id="exampleModalLabel" style="color: #ffffff; text-align: center;">Privacy Policy</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        <div class="modal-body" id="modalPolicy">
+           <h5 style="font-weight: 900;"> Why we collect your information?</h5>
+
+            We collect your information to be able to store it in the admin's system for daily monitoring of  bookings. All the details that are collected about you will not be disclosed in any way or form because the other users who will manage the system will need to sign a NDA Agreement for everyone's protection and security.  Ensure that E-Hatid works as it should and you are able to browse E-Hatid safely and securely. We also collect your information to track bugs, errors, and usage statistics. In case of any security incident or data breach, we may also use your information in our investigative reporting to the National Privacy Commission.
+            <br>
+            <br>
+            <h5 style="font-weight: 900;"> Data Privacy Act</h5>
+            
+            
+            The Data Privacy Act affords you the following rights with regards to your personal data/information:
+            <ul type="none">
+                <li><b>i.</b> To be informed whether Personal Data pertaining to him or her shall be, are being, or have been processed;</li>
+                <li><b>ii.</b> To reasonable access to any Personal Data collected and processed in duration of employment;</li>
+                <li><b>iii.</b> To suspend, withdraw, or order the blocking, removal, or destruction of Personal Data from the relevant company&apos;s filing system;</li>
+                <li><b>iv.</b> To dispute the inaccuracy or error in Personal Data, and the relevant company shall correct it immediately and accordingly, upon the request unless the request is vexatious or otherwise unreasonable;</li>
+                <li><b>v.</b> Where the Data Subject&apos;s Personal Data is processed through electronic means and in a structured and commonly used format, the Data Subject has the right to obtain a copy of such data in an electronic or structured format that is commonly used and allows for further use by the Data Subject;</li>
+                <li><b>vi.</b> The Data Subject has the right to be indemnified for any damages sustained pursuant to the provisions of the Data Privacy Act or Other Privacy Laws </li>
+                <li></li>
+            </ul>
+              
+            If you want to exercise your rights or learn more about how E-Hatid processes your information, please contact our Data Protection Officer at help@ehatid.ph.
+            
+        </div>
+        <div class="modal-footer">
+            
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Ok</button>
+            
+        </div>
+    </div>
+</div>
+</div>
+
+
+
+
+
+    <!-- End of Page Wrapper -->
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    
+    <script src="js/admin.min.js"></script>
+    <script src="printThis.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  
+
+    <!-- Page level plugins -->
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/datatables-demo.js"></script>
+
+    <script type="module" src="add3.js"></script>
+
+    <!--Firebase Libraries-->
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-database.js"></script>
+
+    
+    <!-- Firebase -->
+    <script type="module">
+        //var element = document.getElementById("idInput");
+        //element.style.display = "none";
+
+        var firebaseConfig = {
+            apiKey: "AIzaSyAYLfR72YvVWK7NKuYv0i8cZLeOyky_2UI",
+            authDomain: "e-hatid-ac4b8.firebaseapp.com",
+            databaseURL: "https://e-hatid-ac4b8-default-rtdb.firebaseio.com",
+            projectId: "e-hatid-ac4b8",
+            storageBucket: "e-hatid-ac4b8.appspot.com",
+            messagingSenderId: "151893715495",
+            appId: "1:151893715495:web:c66ce45a224b36f0113c02",
+            measurementId: "G-K4WTYXS330"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+
+
+        var passNo;
+        function SelectAllData() {
+            document.getElementById('tbody1').innerHTML = "";
+            passNo = 0;
+            passList = [];
+            firebase.database().ref('passengers').once('value',
+            function(AllRecords)
+            {
+                AllRecords.forEach(
+                    function(CurrentRecord){
+                        var firstName = CurrentRecord.val().first_name;
+                        var lastName = CurrentRecord.val().last_name;
+                        var email = CurrentRecord.val().email;
+                        var username = CurrentRecord.val().username;
+                        var birthdate = CurrentRecord.val().birthdate;
+                        var lifePoints = CurrentRecord.val().lifePoints;
+                        var phoneNum = CurrentRecord.val().phoneNum;
+                        var pID = CurrentRecord.key;
+                       AddItemsToTable(firstName, lastName, email, username, pID, CurrentRecord.val().password, birthdate, lifePoints, phoneNum);
+
+                    }
+                );
+            });
+        }
+
+        window.onload = SelectAllData;
+
+
+
+        var passList = [];
+
+        function AddItemsToTable(firstName, lastName, email, username, pID, password, birthdate, lifePoints, phoneNum) {
+            var tbody = document.getElementById('tbody1')
+            var trow = document.createElement("tr");
+            var td1 = document.createElement('td');
+            var td2 = document.createElement('td');
+            var td3 = document.createElement('td');
+            var td4 = document.createElement('td');
+            var td5 = document.createElement('td');
+            var td6 = document.createElement('td');
+            var td7 = document.createElement('td');
+
+            passList.push([firstName, lastName, email, username, pID, password, birthdate, lifePoints, phoneNum]);
+
+
+            td1.innerHTML = ++passNo;
+            td2.innerHTML = firstName +" " +lastName;
+            td3.innerHTML = username;
+            td4.innerHTML = email;
+            td5.innerHTML = phoneNum;
+            td6.innerHTML = pID;
+            td7.innerHTML = lifePoints;
+
+            var actionDiv = document.createElement("div");
+            actionDiv.innerHTML = '<button data-toggle="modal" data-target="#modalTable" class="actionBtn3 notForPrinting" type="button" onclick="FillTboxes(' + passNo + ')"><i class="fas fa-edit " style="color:black;" data-toggle="tooltip" data-placement="top" title="Edit Life Points"></i></button>';
+            actionDiv.innerHTML +='<button class="actionBtn notForPrinting" type="button" onclick="archivedboxes(' + passNo + ')" data-toggle="tooltip" data-placement="top" title="Archive Data"><i class="fas fa-archive " style="color:black;"></i></button>';
+
+            trow.appendChild(td1);
+            trow.appendChild(td2);
+            trow.appendChild(td3);
+            trow.appendChild(td4);
+            trow.appendChild(td5);
+           // trow.appendChild(td7);
+
+            tbody.appendChild(trow);
+            trow.appendChild(actionDiv);
+
+
+        };
+
+
+        var modFirstName ='';
+        var modLastName = document.getElementById('ln');
+        var modEmail = document.getElementById('em');
+        var modUsername = document.getElementById('un');
+        var modPassID = document.getElementById('pID');
+        var modPassword='';
+        var modBirthdate='';
+        var modPhoneNum='';
+        var modLifePoints=document.getElementById('fn');
+
+        editBtn.addEventListener('click', (e) => {
+            firebase.database().ref("passengers/" + modPassID.value).update(
+                {
+                    // id: modPassID,
+                    lifePoints: parseFloat(modLifePoints.value),
+                },
+                (error) => {
+                    if (error) {
+                        swal({
+                            title: "Error!",
+                            text: error,
+                            icon: "error",
+                            timer: 4000,
+                            showConfirmButton: false
+                            //button: "Try again",
+                        });
+                    }
+                    else {
+                        swal({
+                            title: "Success!",
+                            text: "Update complete!",
+                            icon: "success",
+                            timer: 4000,
+                            showConfirmButton: false
+                            //button: "Try again",
+                        });
+                        SelectAllData();
+                        $("#modalTable").modal('hide');
+
+                    }
+                }
+            )
+        });
+
+        window.FillTboxes = (index) => {
+            if (index == null) {
+                modLifePoints.value  = "";
+            }
+            else {
+                --index;
+                modPassID.value = passList[index][4];
+                modLifePoints.value = passList[index][7];
+
+                //window.FillTboxes = (index);
+            }
+
+
+        };
+        window.archivedboxes=(index)=>{
+            if (index == null) {
+                modFirstName.value = "";
+                modLastName.value = "";
+                modEmail.value = "";
+                modUsername.value = "";
+                modPassID.value = "";
+            }
+            else {
+                --index;
+                modFirstName = passList[index][0];
+                modLastName = passList[index][1];
+                modEmail = passList[index][2];
+                modUsername = passList[index][3];
+                modPassID.value = passList[index][4];
+                modPassword = passList[index][5];
+                modBirthdate = passList[index][6];
+                modLifePoints.value=passList[index][7];
+        
+                modPhoneNum=passList[index][8];
+            }
+            firebase.database().ref("archievedPassengers/" + modPassID.value).set(
+                {
+                    // id: modPassID,
+                    first_name: modFirstName,
+                    last_name: modLastName,
+                    email: modEmail,
+                    username: modUsername,
+                    password: modPassword,
+                    birthdate: modBirthdate,
+                    lifePoints: modLifePoints.value,
+                    phoneNum: modPhoneNum
+                },
+                (error) => {
+                    if (error) {
+                        swal({
+                            title: "Error!",
+                            text: error,
+                            icon: "error",
+                            timer: 4000,
+                            showConfirmButton: false
+                            //button: "Try again",
+                        });
+                    }
+                    
+                    else {
+                        firebase.database().ref("passengers/" + modPassID.value).remove();
+                        swal({
+                            title: "Success!",
+                            text: "The record has been archive",
+                            icon: "success",
+                            timer: 4000,
+                            showConfirmButton: false
+                            //button: "Try again",
+                        });
+                        SelectAllData();
+                    }
+                }
+            )
+        }
+
+        $("#printDash").click(function(){
+            $('#dataTable1').printThis();
+        });  
+
+      
+
+    </script>
+
+<script type="text/javascript">
+    function passwordSee() {
+    var x = document.getElementById("password");
+    if (x.type === "password") {
+    x.type = "text";
+     } else {
+    x.type = "password";
+    }
+    }
+
+    function passwordSee1() {
+    
+    var y = document.getElementById("pass2");
+    if (y.type === "password") {
+    y.type = "text";
+     } else {
+    y.type = "password";
+    }
+
+}
+ </script>   
+
+    <!--
+    
+           
+
+
+
+<button class="actionBtn3" type="button"><img src="img/edit.png" style="height: 15px;"></button> 
+<button class="actionBtn" type="button"><img src="img/eye.png" style="height: 15px;"></button> 
+<button class="actionBtn2" type="button"><img src="img/trash.png" style="height: 15px;"></button>
+-->
+</body>
+
+
+
+</html>
