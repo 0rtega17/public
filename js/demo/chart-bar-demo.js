@@ -97,14 +97,24 @@ firebase.database().ref('All Ride Requests').once('value',
         scales: {
           xAxes: [{
             time: {
-              unit: 'Daily'
+              unit: 'Daily',
+              
             },
             gridLines: {
               display: false,
               drawBorder: false
             },
             ticks: {
-              maxTicksLimit: 6
+              //maxTicksLimit: 6
+              fontFamily: 'Montserrat',
+            },
+            scaleLabel: {
+              display: true,
+              labelString: 'Date',
+              fontStyle: "bold",
+              fontFamily: 'Montserrat',
+              fontSize:15,
+
             },
             maxBarThickness: 25,
           }],
@@ -112,13 +122,15 @@ firebase.database().ref('All Ride Requests').once('value',
             ticks: {
               min: 0,
              // max: maxtimes,
-             max: 40,
+              max: 40,
               maxTicksLimit: 5,
               padding: 10,
+              fontFamily: 'Montserrat',
               // Include a dollar sign in the ticks
               callback: function (value, index, values) {
                 return number_format(value);
-              }
+              },
+            
             },
             gridLines: {
               color: "rgb(234, 236, 244)",
@@ -126,9 +138,19 @@ firebase.database().ref('All Ride Requests').once('value',
               drawBorder: false,
               borderDash: [2],
               zeroLineBorderDash: [2]
-            }
+            },
+            scaleLabel: {
+              display: true,
+              labelString: 'Bookings',
+              fontStyle: "bold",
+              fontFamily: 'Montserrat',
+              fontSize:15,
+
+            },
           }],
+          
         },
+        
         legend: {
           display: false
         },
@@ -136,8 +158,10 @@ firebase.database().ref('All Ride Requests').once('value',
           titleMarginBottom: 10,
           titleFontColor: '#6e707e',
           titleFontSize: 14,
+          titleFontFamily: 'Montserrat',
           backgroundColor: "rgb(255,255,255)",
           bodyFontColor: "#858796",
+          bodyFontFamily: 'Montserrat',
           borderColor: '#dddfeb',
           borderWidth: 1,
           xPadding: 15,
@@ -151,6 +175,11 @@ firebase.database().ref('All Ride Requests').once('value',
             }
           }
         },
-      }
+        
+      },
+      
+      
+
     });
+   
   });

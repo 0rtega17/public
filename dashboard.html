@@ -56,11 +56,12 @@
             width: fit-content;
             
         }
-
-        #scroll {
-            height: 250px;
-            overflow:auto;
-            overflow-x:hidden;
+        #printFooter *{
+            visibility: hidden;
+        }
+        #printOfficers *{
+            visibility: hidden;
+            display: none;
         }
 
 
@@ -245,24 +246,25 @@
                     <!-- Content Row -->
                     <div class="row" id="cardsDash">
 
-                        <!-- Earnings (Monthly) Card Example -->
+                        <!-- CUrrent Booking Fee -->
                         <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-primary shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                        <center>    
-
-                                             <div class="col-auto">
-                                            <i class="fas fa-check-square fa-2x text-gray-300"></i>
-                                        </div>  
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
-                                            
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                                Total Completed Bookings</div>
-                                        </center>
+                                            <center>
+                                           
+                                                <div class="col-auto">
+                                                    <i class="fas fa-coins fa-2x text-gray-300"></i>
+                                                </div>
+                                                                                             
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800"><h2 id="try_bookingFee"></h2></div>
+                                                                                        
+                                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1" style="letter-spacing: 1.2px;">Current Booking Fee
+                                                </div>
+                                            </center>
                                         </div>
-
+                                 
                                      
                                     </div>
                                 </div>
@@ -394,47 +396,63 @@
 
 
                   <!--Officer's Card-->
-                        <div class="card shadow mb-4"  >
+                        <div class="card shadow mb-4" id="printOfficers" >
                             <div class="card-header py-3">
                                 <h6 class="m-0 font-weight-bold text-gray-700">TODA G5 Officers</h6>
                             </div>
                             <!-- Card Body -->
-                            <div class="card-body" id="scroll">
+                            <div class="card-body">
                                
-                                <ul class="list-group list-group-flush" id="scroll">
+                                <ul class="list-group list-group-flush">
                                     <li class="list-group-item">
-                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400" style="left:2%; top: 27%; font-size: 40px; position: absolute;"></i>
+                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400" style="left:2%; top: 26%; font-size: 27px; position: absolute;"></i>
                                         <ul type="none">
-                                        <li><label style="font-size: 18px; font-weight:900;">President</label></li>
-                                        <li style="margin-top: -15px;"><label style="font-size: 12px; top:-150%">Jury Alibusa</label></li>
-                                        <li style="margin-top: -12px;"><label style="font-size: 12px;">09167890123</label></li>
-                                        </ul>
+                                        <li><label style="font-size: 13px; font-weight:900;">President</label></li>
+                                        <li style="margin-top: -15px;"><label style="font-size: 11px; top:-150%">Jury Alibusa</label></li>
+                                                                                </ul>
                                     </li>
                                     <li class="list-group-item">
-                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400" style="left:2%; top: 27%; font-size: 40px; position: absolute;"></i>
+                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400" style="left:2%; top: 24%; font-size: 27px; position: absolute;"></i>
                                         <ul type="none">
                                            
-                                            <li><label style="font-size: 18px; font-weight:900;">Vice President</label></li>
-                                            <li style="margin-top: -15px;"><label style="font-size: 12px; top:-150%">Jury Alibusa</label></li>
-                                            <li style="margin-top: -12px;"><label style="font-size: 12px;">09167890123</label></li>
+                                            <li><label style="font-size: 13px; font-weight:900;">Vice President</label></li>
+                                            <li style="margin-top: -15px;"><label style="font-size: 11px; top:-150%">Ramon De Torres</label></li>
+                                    
                                         </ul>
                                     </li>
                                     <li class="list-group-item">
-                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400" style="left:2%; top: 27%; font-size: 40px; position: absolute;"></i>
+                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400" style="left:2%; top: 27%; font-size: 27px; position: absolute;"></i>
                                         <ul type="none">
-                                        <li><label style="font-size: 18px; font-weight:900;">Secretary</label></li>
-                                        <li style="margin-top: -15px;"><label style="font-size: 12px; top:-150%">Jury Alibusa</label></li>
-                                        <li style="margin-top: -12px;"><label style="font-size: 12px;">09167890123</label></li>
+                                        <li><label style="font-size: 13px; font-weight:900;">Secretary</label></li>
+                                        <li style="margin-top: -15px;"><label style="font-size: 11px; top:-150%">Roldan Frane</label></li>
+                                        
                                         </ul>
                                     </li>
                                     <li class="list-group-item">
-                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400" style="left:2%; top: 27%; font-size: 40px; position: absolute;"></i>
+                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400" style="left:2%; top: 27%; font-size: 27px; position: absolute;"></i>
                                         <ul type="none">
-                                            <li><label style="font-size: 18px; font-weight:900;">Treasurer</label></li>
-                                            <li style="margin-top: -15px;"><label style="font-size: 12px; top:-150%">Jury Alibusa</label></li>
-                                            <li style="margin-top: -12px;"><label style="font-size: 12px;">09167890123</label></li>
+                                            <li><label style="font-size: 13px; font-weight:900;">Treasurer</label></li>
+                                            <li style="margin-top: -15px;"><label style="font-size: 11px; top:-150%">Dante Baril</label></li>
+                            
                                             </ul>
                                     </li>
+                                    <li class="list-group-item">
+                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400" style="left:2%; top: 27%; font-size: 27px; position: absolute;"></i>
+                                        <ul type="none">
+                                            <li><label style="font-size: 13px; font-weight:900;">P.R.O.</label></li>
+                                            <li style="margin-top: -15px;"><label style="font-size: 11px; top:-150%">Joel Dimala</label></li>
+                                           
+                                            </ul>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400" style="left:2%; top: 27%; font-size: 27px; position: absolute;"></i>
+                                        <ul type="none">
+                                            <li><label style="font-size: 13px; font-weight:900;">Sergeant at Arms</label></li>
+                                            <li style="margin-top: -15px;"><label style="font-size: 11px; top:-150%">Raymond Macatangay</label></li>
+                                            <li style="margin-top: -15px;"><label style="font-size: 11px; top:-150%">Antoine Clarete</label></li>
+                                            </ul>
+                                    </li>
+                                    
 
                                     
                                 </ul>
@@ -475,8 +493,8 @@
             <!-- End of Main Content -->
         <div>
             <!-- Footer -->
-            <footer class="sticky-footer bg-ehatid">
-                <div class="container my-auto">
+            <footer class="sticky-footer bg-ehatid" >
+                <div class="container my-auto" id="printFooter">
                     <div class="copyright text-center my-auto">
                         <span>Copyright &copy; <br> All Rights Reserved. 2022 </span>
                     </div>
@@ -539,7 +557,10 @@
       <!-- Page level custom scripts -->
       <script type="module" src="js/demo/chart-area-demo.js"></script>
       <script type="module" src="js/demo/chart-pie-demo.js"></script>
-      <script type="module" src="js/demo/chart-bar-demo.js"></script>    
+      <script type="module" src="js/demo/chart-bar-demo.js"></script>   
+      
+      <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.1.0/dist/chartjs-plugin-datalabels.min.js"></script>
+
 
      <!-- Firebase -->
      <script src="https://www.gstatic.com/firebasejs/5.5.7/firebase.js"></script>
@@ -593,7 +614,9 @@ firebase.database().ref('passengers').on('value', function(snapshot){
         document.getElementById('try_pass').innerHTML = count;
 
 
-    }); 
+    });
+    
+
 
 firebase.database().ref().child('All Ride Requests').orderByChild("status").equalTo("ended").on('value', function(snapshot){
     var count = snapshot.numChildren();
@@ -601,7 +624,16 @@ firebase.database().ref().child('All Ride Requests').orderByChild("status").equa
         document.getElementById('try_drive1').innerHTML = count;
      
  });
+
+ firebase.database().ref().child('fareAmount').on('value', function(snapshot){
+        //alert(count);   
+        var bk = snapshot.val().bookingFee;
+        document.getElementById('try_bookingFee').innerHTML = "₱  " + bk + ".00";
+     
+ });
+ 
  };
+
  function labas3()
  {
 

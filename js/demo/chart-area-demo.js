@@ -84,16 +84,16 @@ firebase.database().ref('All Ride Requests').once('value',
       data: {
         labels: [...map2.keys()],
         datasets: [{
-          label: "Booking",
+          label: "Bookings",
           lineTension: 0.3,
           backgroundColor: "rgba(78, 115, 223, 0.05)",
-          borderColor: "rgba(78, 115, 223, 1)",
+          borderColor: "#F3D849",
           pointRadius: 3,
-          pointBackgroundColor: "rgba(78, 115, 223, 1)",
-          pointBorderColor: "rgba(78, 115, 223, 1)",
+          pointBackgroundColor: "#CAB12D",
+          pointBorderColor: "#CAB12D",
           pointHoverRadius: 3,
-          pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-          pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+          pointHoverBackgroundColor: "#F1E49C",
+          pointHoverBorderColor: "#F1E49C",
           pointHitRadius: 10,
           pointBorderWidth: 2,
           data: [...map2.values()],
@@ -112,21 +112,33 @@ firebase.database().ref('All Ride Requests').once('value',
         scales: {
           xAxes: [{
             time: {
-              unit: 'date'
+              unit: 'date',
+              
             },
             gridLines: {
               display: false,
               drawBorder: false
             },
             ticks: {
-              maxTicksLimit: 7,
-              fontSize: 12
-            }
+             // maxTicksLimit: 7,
+              fontSize: 12,
+              fontFamily: 'Montserrat'
+            },
+            scaleLabel: {
+              display: true,
+              labelString: 'Time',
+              fontStyle: "bold",
+              fontFamily: 'Montserrat',
+              fontSize:15,
+
+            },
+            
           }],
           yAxes: [{
             ticks: {
               maxTicksLimit: 5,
               padding: 10,
+              fontFamily: 'Montserrat',
               // Include a dollar sign in the ticks
               callback: function (value, index, values) {
                 return number_format(value);
@@ -138,9 +150,20 @@ firebase.database().ref('All Ride Requests').once('value',
               drawBorder: false,
               borderDash: [2],
               zeroLineBorderDash: [2]
-            }
+            },
+            scaleLabel: {
+              display: true,
+              labelString: 'Bookings',
+              fontStyle: "bold",
+              fontFamily: 'Montserrat',
+              fontSize:15,
+              
+
+            },
           }],
+         
         },
+        
         legend: {
           display: false
         },
@@ -155,6 +178,8 @@ firebase.database().ref('All Ride Requests').once('value',
           xPadding: 15,
           yPadding: 15,
           displayColors: false,
+          titleFontFamily: 'Montserrat',
+          bodyFontFamily: 'Montserrat',
           intersect: false,
           mode: 'index',
           caretPadding: 10,

@@ -26,7 +26,7 @@
     .tableview{         
 		    height:650px;		    
             overflow:auto;
-            overflow-x:hidden;
+            
         }
         thead{
             text-align: center;
@@ -207,7 +207,7 @@
                                     <i class="fa fa-print" aria-hidden="true" id="printIcon"></i>&nbsp;Print</button>
                             </div>
 
-                            <div class="table-responsive tableview">
+                            <div class="table-responsive tableview table-striped">
                                 <table class="table table-bordered display" id="dataTable1" width="100%"
                                     cellspacing="0">
                                     <thead class="table-dark">
@@ -566,6 +566,18 @@ $("#printDash").click(function(){
 });
 
     </script>
+
+<script>
+    window.location.hash = "no-back-button";
+
+    // Again because Google Chrome doesn't insert
+    // the first hash into the history
+    window.location.hash = "Again-No-back-button"; 
+
+    window.onhashchange = function(){
+        window.location.hash = "no-back-button";
+    }
+</script>
 
 
 

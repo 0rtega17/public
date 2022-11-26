@@ -171,10 +171,66 @@
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
+                    
+                        <!-- Topbar Search -->
+                        <form
+                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search"
+                                aria-label="Search" aria-describedby="basic-addon2" id="searchBar" >
+                                <select class="custom-select" id="allCategory" style="max-width: 30%;">
+                                   <option selected>Choose...</option>
+                                   <option value="1">First Name</option>
+                                   <option value="2">Last Name</option>
+                                   <option value="3">Username</option>
+                                   <option value="4">Email</option>
+                                   <option value="5">Mobile No.</option>
+                                 </select>
 
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button" id="searchBtn1">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
+
+                    <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+                    <li class="nav-item dropdown no-arrow d-sm-none">
+                        <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <!-- Dropdown - Messages 
+                        <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                            aria-labelledby="searchDropdown">
+                            <form class="form-inline mr-auto w-100 navbar-search">
+                                <div class="input-group">
+                                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search"
+                                    aria-label="Search" aria-describedby="basic-addon2" id="searchBar" >
+                                    <select class="custom-select" id="allCategory" style="max-width: 30%;">
+                                       <option selected>Choose...</option>
+                                       <option value="1">First Name</option>
+                                       <option value="2">Last Name</option>
+                                       <option value="3">Username</option>
+                                       <option value="4">Email</option>
+                                       <option value="5">Mobile No.</option>
+                                     </select>
+    
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" type="button" id="searchBtn1">
+                                        <i class="fas fa-search fa-sm"></i>
+                                    </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </li>
+                   -->
+
 
                         <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -234,17 +290,18 @@
         
                                     </div>
                            
-                             <table class="table table-bordered display" id="dataTable1" width="100%"
+                             <table class="table table-bordered display table-striped" id="dataTable1" width="100%"
                                     cellspacing="0">
                                     <thead class="table-dark">
                                         <tr>
                                             <th>No.</th>
-                                            <th>Name</th>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
                                             <th>Username</th>
                                             <th>Email</th>
                                             <th>Mobile Number</th>
 
-                                            <th id="actionDel" width="12%">Action</th>
+                                            <th id="actionDel" width="20%">Action</th>
                                         </tr>
                                     </thead>
 
@@ -589,7 +646,7 @@ aria-hidden="true">
 
         var passList = [];
 
-        function AddItemsToTable(firstName, lastName, email, username, pID, password, birthdate, lifePoints, phoneNum) {
+        function AddItemsToTable(firstName, lastName, email, username, pID, password, birthdate, lifePoints, phoneNum,) {
             var tbody = document.getElementById('tbody1')
             var trow = document.createElement("tr");
             var td1 = document.createElement('td');
@@ -599,17 +656,25 @@ aria-hidden="true">
             var td5 = document.createElement('td');
             var td6 = document.createElement('td');
             var td7 = document.createElement('td');
+            var td8 = document.createElement('td');
 
             passList.push([firstName, lastName, email, username, pID, password, birthdate, lifePoints, phoneNum]);
 
 
             td1.innerHTML = ++passNo;
-            td2.innerHTML = firstName +" " +lastName;
-            td3.innerHTML = username;
-            td4.innerHTML = email;
-            td5.innerHTML = phoneNum;
-            td6.innerHTML = pID;
-            td7.innerHTML = lifePoints;
+            td2.innerHTML = firstName;
+            td3.innerHTML = lastName;
+            td4.innerHTML = username;
+            td5.innerHTML = email;
+            td6.innerHTML = phoneNum;
+            td7.innerHTML = pID;
+            td8.innerHTML = lifePoints;
+
+            td2.classList +="firstNameField";
+            td3.classList +="lastNameField";
+            td4.classList +="usernameField";
+            td5.classList +="emailField";
+            td6.classList +="phoneNumField";
 
             var actionDiv = document.createElement("div");
             actionDiv.innerHTML = '<button data-toggle="modal" data-target="#modalTable" class="actionBtn3 notForPrinting" type="button" onclick="FillTboxes(' + passNo + ')"><i class="fas fa-edit " style="color:black;" data-toggle="tooltip" data-placement="top" title="Edit Life Points"></i></button>';
@@ -620,6 +685,7 @@ aria-hidden="true">
             trow.appendChild(td3);
             trow.appendChild(td4);
             trow.appendChild(td5);
+            trow.appendChild(td6);
            // trow.appendChild(td7);
 
             tbody.appendChild(trow);
@@ -752,7 +818,76 @@ aria-hidden="true">
             $('#dataTable1').printThis();
         });  
 
-      
+      var searchBar = document.getElementById("searchBar");
+      var searchBtn = document.getElementById("searchBtn1");
+      var category = document.getElementById("allCategory");
+      var tbody = document.getElementById("tbody1")
+
+      function searchTable(Category)
+      {
+            var filter = searchBar.value.toUpperCase();
+            var tr = tbody.getElementsByTagName("tr");
+            var found;
+
+            for (let i = 0; i < tr.length; i++) {
+                var td = tr[i].getElementsByClassName(Category);
+                for (let j = 0; j < td.length; j++) {
+                    if(td[j].innerHTML.toUpperCase().indexOf(filter) > -1)
+                    {
+                        found=true;
+                    }
+                    
+                }
+
+                if(found)
+                {
+                    tr[i].style.display="table-row";
+                    found=false;
+                }
+                else
+                {
+                    tr[i].style.display="none";
+                }
+                
+            }
+
+      }
+
+    //  searchBtn1.addEventListener('click', (e) => {
+        
+
+      //})
+
+      searchBtn1.onclick = function()
+
+      {
+        if(searchBar.value=="")
+        {
+            // searchTable("firstNameField");
+            swal({
+                            title: "Error!",
+                            text: "error",
+                            icon: "error",
+                            timer: 4000,
+                            showConfirmButton: false
+                            //button: "Try again",
+                        });
+        }
+        else if(category.value==1)
+        searchTable("firstNameField");
+       
+        else if(category.value==2)
+        searchTable("lastNameField");
+
+        else if(category.value==3)
+        searchTable("usernameField");
+
+        else if(category.value=4)
+        searchTable("emailField");
+
+        else if(category.value==5)
+        searchTable("phoneNumField"); 
+      }
 
     </script>
 

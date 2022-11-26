@@ -70,6 +70,8 @@ function showPieData(passengersCount, driversCount) {
         backgroundColor: "rgb(255,255,255)",
         bodyFontColor: "#858796",
         borderColor: '#dddfeb',
+        bodyFontFamily: 'Montserrat',
+        
         borderWidth: 1,
         xPadding: 15,
         yPadding: 15,
@@ -77,7 +79,13 @@ function showPieData(passengersCount, driversCount) {
         caretPadding: 10,
       },
       legend: {
+        font: {
+          family: 'Montserrat',
+          size:30
+        },
         position: 'top',
+       
+        
       },
       cutoutPercentage: 50,
     },

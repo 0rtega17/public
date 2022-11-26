@@ -47,7 +47,7 @@
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
 
                 <div class="sidebar-brand-icon">
-                    <img class="logo" src="img/logo.png" style="height:8vh;" />
+                    <img class="logo" src="img/logo.png" style="height:80px;" />
                 </div>
 
             </a>
@@ -62,8 +62,6 @@
 
             </li>
 
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
@@ -102,7 +100,7 @@
                     <div class="bg-grey py-2 collapse-inner rounded">
                        
                         <a class="collapse-item" href="archiveTBDriver.html">Drivers</a>
-                        <a class="collapse-item" href="archiveTB.html" style="font-weight: 1000;">Passengers</a>
+                        <a class="collapse-item active" href="archiveTB.html" style="font-weight: 1000;">Passengers</a>
                     </div>
                 </div>
             </li>
@@ -212,7 +210,7 @@
                             <div class="table-responsive">
 
 
-                                <table class="table table-bordered display" id="dataTable1" width="100%"
+                                <table class="table table-bordered display" id="dataTable1arc" width="100%"
                                     cellspacing="0">
                                     <thead class="table-dark">
                                         <tr>
@@ -294,6 +292,28 @@
             </div>
         </div>
     </div>
+
+
+ <!--Modal for Logout-->
+ <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+ aria-hidden="true">
+ <div class="modal-dialog" role="document">
+     <div class="modal-content">
+         <div class="modal-header">
+             <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                 <span aria-hidden="true">×</span>
+             </button>
+         </div>
+         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+         <div class="modal-footer">
+             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+             <a class="btn btn-primary" href="index.html">Logout</a>
+         </div>
+     </div>
+ </div>
+</div>
+
 
 
 
@@ -538,7 +558,7 @@
         })*/
 
         $("#printDash").click(function(){
-            $('#dataTable1').printThis();
+            $('#dataTable1arc').printThis();
         });
 
     </script>

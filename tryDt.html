@@ -1,0 +1,137 @@
+<div id="container">
+    <table id="ex-table" class="table table-striped table-hover table-bordered table-condensed">
+      
+    </table>
+      
+     </container>
+     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+     <script src="vendor/jquery/jquery.min.js"></script>
+     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+ 
+     <!-- Core plugin JavaScript-->
+     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+     
+     <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/5.5.7/firebase.js"></script>
+  <!-- Firebase -->
+    <script>
+       var config = {
+        apiKey: "AIzaSyAYLfR72YvVWK7NKuYv0i8cZLeOyky_2UI",
+        authDomain: "e-hatid-ac4b8.firebaseapp.com",
+        databaseURL: "https://e-hatid-ac4b8-default-rtdb.firebaseio.com",
+        projectId: "e-hatid-ac4b8",
+        storageBucket: "e-hatid-ac4b8.appspot.com",
+        messagingSenderId: "151893715495",
+        appId: "1:151893715495:web:c66ce45a224b36f0113c02",
+        measurementId: "G-K4WTYXS330"
+      };
+    
+      // Initialize Firebase
+      //firebase.initializeApp(firebaseConfig);
+      firebase.initializeApp(config);
+    
+    var dataSrc = [];
+    var count =1;
+    
+    
+    function loadData(callback){
+      var databaseRef = firebase.database().ref("passengers/");
+    
+      //var table = $('#ex-table').DataTable();
+    
+      console.log("Loading data starts ...");
+      databaseRef.on("child_added", function(data) {
+         var storageObj = data.val();
+        console.log("Loading data starts3 ...");
+         var dataSet = [storageObj.first_name, storageObj.last_name, storageObj.username, storageObj.email];
+        
+    
+       //table.rows.add([dataSet]).draw(); 
+        dataSrc.push(dataSet);
+      
+        console.log("dataSrc= "+dataSrc);
+          
+        console.log("Loading data..."+count);
+          
+        count++;
+          
+     //  $.holdReady( true );
+    //$('#ex-table').DataTable().clear().destroy();
+      //    
+      
+    console.log("Loading data ends ...");
+        
+         console.log("table initialization started ...");
+      
+            $('#ex-table').DataTable({
+
+        // $('#ex-table').DataTable({
+              "bDestroy": true,    
+             //data: dataSrc,
+    
+              //data: dataSrc,
+              columns: [
+                    { title: "First Name", data: dataSet[0]},
+                    { title: "Last Name", data: dataSet[1]},
+                    { title: "Username", data: dataSet[2]},
+                    { title: "Email", data: dataSet[3]}
+                ],
+   
+                     lengthMenu: [[5, 20, 50, -1], [5, 20, 50, "All"]]
+    
+    
+              });
+    
+          console.log("table initialization ends ...");
+        
+     
+    
+      });
+      
+       if(callback){callback();}
+    }
+    
+    
+    function 	downloadObjectAsJson(exportObj, exportName){
+      
+      var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportObj));
+        var downloadAnchorNode = document.createElement('a');
+        downloadAnchorNode.setAttribute("href",     dataStr);
+        downloadAnchorNode.setAttribute("download", exportName + ".json");
+    //    document.body.appendChild(downloadAnchorNode); // required for firefox
+      var container = document.getElementById('container');
+    container.appendChild(downloadAnchorNode);
+    //    downloadAnchorNode.click();
+    //    downloadAnchorNode.remove();
+      
+    }
+    
+    document.addEventListener("DOMContentLoaded", function(event) {
+      var NewFile = "records";
+        loadData(downloadObjectAsJson(dataSrc, NewFile));
+      
+      
+     // loadData(intializeDataTable);
+       // var tableData = "["+dataSrc+"]";
+    
+    
+        
+      
+      
+      
+        });  
+    
+    </script>
+    
+    
+    
+    
+      
+      
+      
+      
+        
+    
+    
