@@ -30,17 +30,20 @@ firebase.database().ref('All Ride Requests').once('value',
         let date = new Date(CurrentRecord.val().time);
         // let date1 = new Date(); // if wanted to show daily hour basis
         // if (date1.getDate() == date.getDate()) {
-        let hours = date.getHours() % 12;
-        hours = hours ? hours : 12;
-        const time1 = date.getHours() < 12 ? 'AM' : 'PM'; // Set AM/PM
-        times.push(hours + ":00 " + time1);
+          const hh = ["AM", "PM"];
+          let hours = date.getHours() % 12;
+          hours = hours ? hours : 12;
+          times.push(hours + ":00 " + hh[Math.floor(date.getHours() / 12)]);
+          // }
         // }
       }
     );
     const showtime = [];
     for (let i = 7; i < 23; i++) {
       const time = i < 12 ? 'AM' : 'PM';
-      showtime.push((i % 12) + ":00 " + time);
+      let hours = i % 12;
+      hours = hours ? hours : 12;
+      showtime.push(hours + ":00 " + time);
     }
     let map = times.reduce((acc, e) => acc.set(e, (acc.get(e) || 0) + 1), new Map());
     let map2 = showtime.reduce((acc, e) => acc.set(e, (acc.get(e) || 0)), new Map());
@@ -84,7 +87,7 @@ firebase.database().ref('All Ride Requests').once('value',
       data: {
         labels: [...map2.keys()],
         datasets: [{
-          label: "Bookings",
+          label: "Number of Bookings",
           lineTension: 0.3,
           backgroundColor: "rgba(78, 115, 223, 0.05)",
           borderColor: "#F3D849",
@@ -126,7 +129,7 @@ firebase.database().ref('All Ride Requests').once('value',
             },
             scaleLabel: {
               display: true,
-              labelString: 'Time',
+              labelString: 'Working Hours',
               fontStyle: "bold",
               fontFamily: 'Montserrat',
               fontSize:15,
@@ -165,7 +168,7 @@ firebase.database().ref('All Ride Requests').once('value',
         },
         
         legend: {
-          display: false
+          display: true
         },
         tooltips: {
           backgroundColor: "rgb(255,255,255)",

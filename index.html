@@ -7,6 +7,7 @@
 	<script src="https://kit.fontawesome.com/a81368914c.js"></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" href="img/logo2.png" type="image/x-icon"/>
 </head>
 <body>
 	<img class="wave" src="img/bgLogin.png">
@@ -72,7 +73,16 @@
     <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-database.js"></script>
 	<script type="module" src="js/adminLogin.js"></script>
-
+	
+	<script type="text/javascript">
+        function preventBack() {
+            window.history.forward(); 
+        }
+          
+        setTimeout("preventBack()", 0);
+          
+        window.onunload = function () { null };
+    </script>
 
 </body>
 </html>

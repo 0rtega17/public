@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Drivers' Archived Data</title>
+    <title>Booking History</title>
 
     <!-- Custom fonts for this template -->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -20,26 +20,25 @@
 
     <!-- Custom styles for this page -->
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
     <link rel="icon" href="img/logo2.png" type="image/x-icon"/>
 
 </head>
-
 <style>
-    @media print {   
-        #notForPrinting{
-            display: none;
-        }
-        #actionDel{
-            display: none;
-        }
-            
+    .tableview{         
+		    height:650px;		    
+            overflow:auto;
             
         }
-   
+        thead{
+            text-align: center;
+            position:sticky;
+            top:0;
+        }    
 </style>
 
 <body id="page-top">
-    <!-- Page Wrapper -->
+    <!-- Page Wrapper  margin-left: 15%; margin-top:6%; width:72%;-->
     <div id="wrapper">
 
         <!-- Sidebar -->
@@ -64,6 +63,9 @@
 
             </li>
 
+            <!-- Divider
+            <hr class="sidebar-divider my-0">-->
+
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
                 <a class="nav-link" href="dashboard.html">
@@ -72,7 +74,7 @@
             </li>
 
 
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="bookingHistory.html">
                     <i class="fa fa-history" style="color: black;"></i>
                     <span>Booking History</span></a>
@@ -91,7 +93,7 @@
                     <span>Manage Driver</span></a>
             </li>
 
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo" style="color: #000;">
                     <i class="fa fa-archive" style="color:black;"></i>
@@ -100,8 +102,8 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-grey py-2 collapse-inner rounded">
                        
-                        <a class="collapse-item active" href="archiveTBDriver.html" style="font-weight: 1000;">Drivers</a>
-                        <a class="collapse-item" href="archiveTB.html" >Passengers</a>
+                        <a class="collapse-item" href="archiveTBDriver.html">Drivers</a>
+                        <a class="collapse-item" href="archiveTB.html">Passengers</a>
                     </div>
                 </div>
             </li>
@@ -152,63 +154,66 @@
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
-<!-- Topbar Search -->
-<form
-class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-<div class="input-group">
-    <input type="text" class="form-control small" placeholder="Search"
-        aria-label="Search" aria-describedby="basic-addon2" id="searchBar" style="width:200px; background-color: rgb(249, 249, 249); border: .2px solid rgb(4, 4, 4) ">
-        <select class="custom-select" id="allCategory" style="width: 30%; border: .2px solid rgb(4, 4, 4)">
-           <option selected>Choose...</option>
-           <option value="1">First Name</option>
-           <option value="2">Last Name</option>
-           <option value="3">Username</option>
-           <option value="4">Email</option>
-           
-         </select>
+                 <!-- Topbar Search -->
+                 <form
+                 class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                 <div class="input-group">
+                     <input type="text" class="form-control small" placeholder="Search" onkeyup="searchTable()"
+                         aria-label="Search" aria-describedby="basic-addon2" id="searchBar" style="width:200px; background-color: rgb(249, 249, 249); border: .2px solid rgb(4, 4, 4) ">
+                         <select class="custom-select" id="allCategory" style="width: 30%; border: .2px solid rgb(4, 4, 4)">
+                            <option selected>Choose...</option>
+                                <option value="1">Booking ID</option>
+                                <option value="2">Passenger's Name</option>
+                                <option value="3">Driver's Name</option>
+                                <option value="4">Date and Time</option>
+                                <option value="5">Fare Amount</option>
+                                <option value="6">Status</option>
+                            
+                          </select>
 
-    <div class="input-group-append">
-        <button class="btn btn-primary" type="button" id="searchBtn1" style="border: .2px solid rgb(4, 4, 4)">
-            <i class="fas fa-search fa-sm"></i>
-        </button>
-    </div>
-</div>
-</form>
+                     <div class="input-group-append">
+                         <button class="btn btn-primary" type="button" id="searchBtn1" style="border: .2px solid rgb(4, 4, 4)">
+                             <i class="fas fa-search fa-sm"></i>
+                         </button>
+                     </div>
+                 </div>
+             </form>
 
-<!-- Topbar Navbar -->
-<ul class="navbar-nav ml-auto">
+             <!-- Topbar Navbar -->
+             <ul class="navbar-nav ml-auto">
 
-<!-- Nav Item - Search Dropdown (Visible Only XS) -->
-<li class="nav-item dropdown no-arrow d-sm-none">
-<a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
-    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    <i class="fas fa-search fa-fw"></i>
-</a>
-<!-- Dropdown - Messages -->
-<div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-    aria-labelledby="searchDropdown">
-    <form class="form-inline mr-auto w-100 navbar-search">
-        <div class="input-group">
-            <input type="text" class="form-control bg-light small" placeholder="Search"
-            aria-label="Search" aria-describedby="basic-addon2" id="searchBar2" style="border: .2px solid rgb(4, 4, 4)">
-            <select class="custom-select" id="allCategory2" style="max-width: 30%; border: .2px solid rgb(4, 4, 4)">
-               <option selected>Choose...</option>
-               <option value="1">First Name</option>
-               <option value="2">Last Name</option>
-               <option value="3">Username</option>
-               <option value="4">Email</option>
-             
-             </select>
+             <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+             <li class="nav-item dropdown no-arrow d-sm-none">
+                 <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                     <i class="fas fa-search fa-fw"></i>
+                 </a>
+                 <!-- Dropdown - Messages -->
+                 <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                     aria-labelledby="searchDropdown">
+                     <form class="form-inline mr-auto w-100 navbar-search">
+                         <div class="input-group">
+                             <input type="text" class="form-control bg-light small" placeholder="Search"
+                             aria-label="Search" aria-describedby="basic-addon2" id="searchBar2" style="border: .2px solid rgb(4, 4, 4)">
+                             <select class="custom-select" id="allCategory2" style="max-width: 30%; border: .2px solid rgb(4, 4, 4)">
+                                <option selected>Choose...</option>
+                                <option value="1">Booking ID</option>
+                                <option value="2">Passenger's Name</option>
+                                <option value="3">Driver's Name</option>
+                                <option value="4">Date and Time</option>
+                                <option value="5">Status</option>
+                              </select>
 
-        <div class="input-group-append">
-            <button class="btn btn-primary" type="button" id="searchBtn2" style="border: .2px solid rgb(4, 4, 4)">
-                <i class="fas fa-search fa-sm"></i>
-            </button>
-            </div>
-        </div>
-    </form>
-</div>
-</li>
+                         <div class="input-group-append">
+                             <button class="btn btn-primary" type="button" id="searchBtn2" style="border: .2px solid rgb(4, 4, 4)">
+                                 <i class="fas fa-search fa-sm"></i>
+                             </button>
+                             </div>
+                         </div>
+                     </form>
+                 </div>
+             </li>
+            
 
                         <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -247,7 +252,7 @@ class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h1 mb-2 text-gray-800">Drivers' Archived Data</h1>
+                    <h1 class="h1 mb-2 text-gray-800">Booking History</h1>
 
 
                     <!-- DataTales Example   style="margin-left: 250px; margin-bottom: -20px;"-->
@@ -259,21 +264,19 @@ class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 
                                 <button class="printBtn" type="button" id="printDash" style="position: relative;">
                                     <i class="fa fa-print" aria-hidden="true" id="printIcon"></i>&nbsp;Print</button>
                             </div>
-                           
-                            <div class="table-responsive">
 
-
-                                <table class="table table-bordered display table-striped" id="dataTable1" width="100%"
+                            <div class="table-responsive tableview table-striped">
+                                <table class="table table-bordered display" id="dataTable1" width="100%"
                                     cellspacing="0">
                                     <thead class="table-dark">
                                         <tr>
                                             <th>No.</th>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>Email</th>
-                                            <th>Username</th>
-
-                                            <th id="actionDel">Action</th>
+                                            <th>Booking ID</th>
+                                            <th>Passenger's Name</th>
+                                            <th>Driver's Name</th>
+                                            <th>Date and Time</th>
+                                            <th>Status</th>   
+                                            <th></th>                                                                                  
                                         </tr>
                                     </thead>
 
@@ -346,34 +349,31 @@ class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 
         </div>
     </div>
 
- <!--Modal for Logout-->
- <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
- aria-hidden="true">
- <div class="modal-dialog" role="document">
-     <div class="modal-content">
-         <div class="modal-header">
-             <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                 <span aria-hidden="true">×</span>
-             </button>
-         </div>
-         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-         <div class="modal-footer">
-             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-             <a class="btn btn-primary" href="index.html">Logout</a>
-         </div>
-     </div>
- </div>
+<!--Modal for Logout-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary" href="index.html">Logout</a>
+            </div>
+        </div>
+    </div>
 </div>
 
 
 
 
 
-
     <!-- End of Page Wrapper -->
-
-
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
@@ -384,8 +384,6 @@ class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 
 
     <!-- Custom scripts for all pages-->
     <script src="js/admin.min.js"></script>
-    <script src="printThis.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <!-- Page level plugins -->
     <script src="vendor/datatables/jquery.dataTables.min.js"></script>
@@ -393,16 +391,16 @@ class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 
 
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
+    <script src="printThis.js"></script>
 
-    
 
     <!--Firebase Libraries-->
     <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-database.js"></script>
 
-     <!-- Firebase -->
-     <script type="module">
+    <!-- Firebase -->
+    <script type="module">
 
 
         var firebaseConfig = {
@@ -423,25 +421,21 @@ class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 
         function SelectAllData() {
             document.getElementById('tbody1').innerHTML = "";
             passNo = 0;
-            firebase.database().ref('archievedDrivers').once('value',
+            firebase.database().ref('All Ride Requests').once('value',
             function(AllRecords)
             {
                 AllRecords.forEach(
                     function(CurrentRecord){
-                        var firstName = CurrentRecord.val().first_name;
-                        var lastName = CurrentRecord.val().last_name;
-                        var email = CurrentRecord.val().email;
-                        var username = CurrentRecord.val().username;
-                        var birthdate = CurrentRecord.val().birthdate;
-                        var earnings = CurrentRecord.val().earnings;
-                        var licenseNum = CurrentRecord.val().licenseNum;
-                        var ratings = CurrentRecord.val().ratings;
-                        var phone = CurrentRecord.val().phone;
-
+                        var passengersName = CurrentRecord.val().name;
+                        var driversName = CurrentRecord.val().driverName;
+                        var time = CurrentRecord.val().time;
+                        var fareAmount = CurrentRecord.val().fareAmount;
+                        var status = CurrentRecord.val().status;
+                        
                         var pID = CurrentRecord.key;
-                    AddItemsToTable(firstName, lastName, email, username, pID, phone, birthdate, earnings, licenseNum, ratings, CurrentRecord.val().password, CurrentRecord.val().plateNum);
+                       AddItemsToTable(passengersName, driversName, time, fareAmount, status, pID);
 
-            }
+                    }
                 );
             });
         }
@@ -452,7 +446,7 @@ class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 
 
         var passList = [];
 
-        function AddItemsToTable(firstName, lastName, email, username, pID, phone, birthdate, earnings, licenseNum, ratings, password, plateNum) {
+        function AddItemsToTable(passengersName, driversName, time, fareAmount, status, pID) {
             var tbody = document.getElementById('tbody1')
             var trow = document.createElement("tr");
             var td1 = document.createElement('td');
@@ -461,31 +455,37 @@ class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 
             var td4 = document.createElement('td');
             var td5 = document.createElement('td');
             var td6 = document.createElement('td');
+            var td7 = document.createElement('td');
 
-            passList.push([firstName, lastName, email, username, pID, phone, birthdate, earnings, licenseNum, ratings, password, plateNum]);
+            passList.push([passengersName, driversName, time, fareAmount, status, pID]);
 
 
             td1.innerHTML = ++passNo;
-            td2.innerHTML = firstName;
-            td3.innerHTML = lastName;
-            td5.innerHTML = username;
-            td4.innerHTML = email;
-            td6.innerHTML = pID;
+            td2.innerHTML = pID;
+            td3.innerHTML = passengersName;
+            td4.innerHTML = driversName;
+            td5.innerHTML = time;
+            //td6.innerHTML = fareAmount;
+            td6.innerHTML = status;
 
-            td2.classList +="firstNameField";
-            td3.classList +="lastNameField";
-            td5.classList +="usernameField";
-            td4.classList +="emailField";
+            td2.classList +="bookingIDField";
+            td3.classList +="passNameField";
+            td4.classList +="driNameField";
+            td5.classList +="timeField";
+            //td6.classList +="fareAmountField";
+            td6.classList +="statusField";
 
-            var actionDiv = document.createElement("div");
+          var actionDiv = document.createElement("div");
            // actionDiv.innerHTML = '<button data-toggle="modal" data-target="#modalTable" class="actionBtn3" type="button" onclick="FillTboxes(' + passNo + ')"><i class="fas fa-edit " style="color:black;"></i></button>';
-            actionDiv.innerHTML = '<button class="actionBtn" id="notForPrinting" type="button" onclick="archivedboxes(' + passNo + ')"><i class="fas fa-archive " style="color:black;"></i></button>';
+         //   actionDiv.innerHTML += '<button class="actionBtn" type="button" onclick="archivedboxes(' + passNo + ')"><i class="fas fa-archive " style="color:black;"></i></button>';
 
             trow.appendChild(td1);
             trow.appendChild(td2);
             trow.appendChild(td3);
             trow.appendChild(td4);
             trow.appendChild(td5);
+            trow.appendChild(td6);
+            trow.appendChild(td7);
             //trow.appendChild(td6);
 
             tbody.appendChild(trow);
@@ -500,13 +500,13 @@ class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 
         var modEmail = document.getElementById('em');
         var modUsername = document.getElementById('un');
         var modPassID = document.getElementById('pID');
+
+        var btnEdit = document.getElementById('editBtn');
         var modPassword='';
-        var modNoPlate="";
         var modBirthdate='';
+        var modLifePoints='';
+        var modToken='';
         var modPhoneNum='';
-        var modEarnings='';
-        var modLicenseNum='';
-        var modRatings='';
 
         editBtn.addEventListener('click', (e) => {
             firebase.database().ref("archievedPassengers/" + modPassID.value).update(
@@ -519,24 +519,10 @@ class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 
                 },
                 (error) => {
                     if (error) {
-                        swal({
-                            title: "Error!",
-                            text: error,
-                            icon: "error",
-                            timer: 4000,
-                            showConfirmButton: false
-                            //button: "Try again",
-                        })
+                        alert("Update fails! bunak ka");
                     }
                     else {
-                        swal({
-                            title: "Success!",
-                            text: "The record has successfully loaded back in the list",
-                            icon: "success",
-                            timer: 4000,
-                            showConfirmButton: false
-                            //button: "Try again",
-                        })
+                        alert("Record was successfully updated!");
                         SelectAllData();
                         $("#modalTable").modal('hide');
 
@@ -564,88 +550,86 @@ class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 
 
 
         };
-       window.archivedboxes=(index)=>{
-    if (index == null) {
-        modFirstName.value = "";
-        modLastName.value = "";
-        modEmail.value = "";
-        modUsername.value = "";
-        modPassID.value = "";
-    }
-    else {
-        --index;
-        modFirstName.value = passList[index][0];
-        modLastName.value = passList[index][1];
-        modEmail.value = passList[index][2];
-        modUsername.value = passList[index][3];
-        modPassID.value = passList[index][4];
-        
-        modPhoneNum = passList[index][5];
-        modBirthdate = passList[index][6];
-        modEarnings = passList[index][7];
-        modLicenseNum = passList[index][8];
-        modRatings = passList[index][9];
-
-        modPassword = passList[index][10];
-        modNoPlate = passList[index][11];
-       
-    }
-    firebase.database().ref("drivers/" + modPassID.value).set(
-        {
-            // id: modPassID,
-            first_name: modFirstName.value,
-            last_name: modLastName.value,
-            email: modEmail.value,
-            username: modUsername.value,
-            id: modPassID.value,
-            phone: modPhoneNum,
-            birthdate: modBirthdate,
-            earnings: modEarnings,
-            licenseNum: modLicenseNum,
-            ratings: modRatings,
-            password: modPassword,
-            plateNum: modNoPlate
-        },
-        (error) => {
-            if (error) {
-                        swal({
-                            title: "Error!",
-                            text: error,
-                            icon: "error",
-                            timer: 4000,
-                            showConfirmButton: false
-                            //button: "Try again",
-                        })
+        window.archivedboxes=(index)=>{
+            if (index == null) {
+                modFirstName.value = "";
+                modLastName.value = "";
+                modEmail.value = "";
+                modUsername.value = "";
+                modPassID.value = "";
             }
             else {
-                firebase.database().ref("archievedDrivers/" + modPassID.value).remove();
-                        swal({
-                            title: "Success!",
-                            text: "The record has successfully loaded back in the list",
-                            icon: "success",
-                            timer: 4000,
-                            showConfirmButton: false
-                            //button: "Try again",
-                        });
-                SelectAllData();
+                --index;
+                modFirstName.value = passList[index][0];
+                modLastName.value = passList[index][1];
+                modEmail.value = passList[index][2];
+                modUsername.value = passList[index][3];
+                modPassID.value = passList[index][4];
+                modPassword=passList[index][5];
+                modBirthdate=passList[index][6];
+                modLifePoints=passList[index][7];
+                modToken=passList[index][8];
+                modPhoneNum=passList[index][9];
             }
+            firebase.database().ref("passengers/" + modPassID.value).set(
+                {
+                    // id: modPassID,
+                    first_name: modFirstName.value,
+                    last_name: modLastName.value,
+                    email: modEmail.value,
+                    username: modUsername.value,
+                    password: modPassword,
+                    birthdate: modBirthdate,
+                    lifePoints: modLifePoints,
+                    token: modToken,
+                    phoneNum: modPhoneNum
+                },
+                (error) => {
+                    if (error) {
+                        alert("Update fails! bunak ka");
+                    }
+                    
+                    else {
+                        firebase.database().ref("archievedPassengers/" + modPassID.value).remove();
+                        alert("Record was successfully deleted!");
+                        SelectAllData();
+                    }
+                }
+            )
         }
-    )
 
-}
-
-/*
-const printBtn = document.getElementById('printDash');
-
-printBtn.addEventListener('click', function(){
-    print();
-})*/
-
-        $("#printDash").click(function(){
-            $('#dataTable1').printThis();
-        });
 
         
+/*$("#printDash").click(function(){
+    $('#dataTable1').printThis();
+});*/
+
+$("#printDash").click(function(){
+    $("#dataTable1").printThis({
+        debug: false,                       // show the iframe for debugging
+        importCSS: true,                    // import parent page css
+        importStyle: false,                  // import style tags
+        printContainer: true,               // print outer container/$.selector
+        loadCSS: "css/admin.min.css",                        // path to additional css file - use an array [] for multiple
+        pageTitle: "Booking History",                      // add title to print page
+        removeInline: false,                // remove inline styles from print elements
+        removeInlineSelector: "*",          // custom selectors to filter inline styles. removeInline must be true
+        printDelay: 1000,                   // variable print delay
+        header: "<h1> Booking History</h1>",                       // prefix to html
+        footer: null,                       // postfix to html
+        base: false,                        // preserve the BASE tag or accept a string for the URL
+        formValues: true,                   // preserve input/form values
+        canvas: true,                       // copy canvas content
+        doctypeString: '<!DOCTYPE html>',   // enter a different doctype for older markup
+        removeScripts: false,               // remove script tags from print content
+        copyTagClasses: true,               // copy classes from the html & body tag
+        copyTagStyles: true,                // copy styles from html & body tag (for CSS Variables)
+        beforePrintEvent: null,             // callback function for printEvent in iframe
+        beforePrint: null,                  // function called before iframe is filled
+        afterPrint: null                    // function called before iframe is removed
+    })
+});
+
       var searchBar = document.getElementById("searchBar");
       var searchBtn = document.getElementById("searchBtn1");
       var category = document.getElementById("allCategory");
@@ -653,14 +637,19 @@ printBtn.addEventListener('click', function(){
 
       function searchTable(Category)
       {
-            var filter = searchBar.value.toUpperCase();
+            var filter = searchBar.value.toString();
+            var filter2 = searchBar.value.toUpperCase();
             var tr = tbody.getElementsByTagName("tr");
             var found;
 
             for (let i = 0; i < tr.length; i++) {
-                var td = tr[i].getElementsByClassName(Category);
+                var td = tr[i].getElementsByClassName(Category)[3];
                 for (let j = 0; j < td.length; j++) {
-                    if(td[j].innerHTML.toUpperCase().indexOf(filter) > -1)
+                    if(td[j].innerHTML.toString().indexOf(filter) > -1)
+                    {
+                        found=true;
+                    }
+                    else if(td[j].innerHTML.toUpperCase().indexOf(filter2) > -1)
                     {
                         found=true;
                     }
@@ -702,16 +691,22 @@ printBtn.addEventListener('click', function(){
                         });
         }
         else if(category.value==1)
-        searchTable("firstNameField");
+        searchTable("bookingIDField");
        
         else if(category.value==2)
-        searchTable("lastNameField");
+        searchTable("passNameField");
 
         else if(category.value==3)
-        searchTable("usernameField");
+        searchTable("driNameField");
 
-        else if(category.value=4)
-        searchTable("emailField");
+        else if(category.value==4)
+        searchTable("timeField");
+        
+        else if(category.value==5)
+        searchTable("fareAmountField");
+
+        else if(category.value=6)
+        searchTable("statusField");
       }
 
 
@@ -722,14 +717,19 @@ printBtn.addEventListener('click', function(){
 
       function searchTable2(Category)
       {
-            var filter = searchBar2.value.toUpperCase();
+            var filter = searchBar2.value.toString();
+            var filter2 = searchBar2.value.toUpperCase();
             var tr2 = tbody2.getElementsByTagName("tr");
             var found;
 
             for (let i = 0; i < tr2.length; i++) {
                 var td = tr2[i].getElementsByClassName(Category);
                 for (let j = 0; j < td.length; j++) {
-                    if(td[j].innerHTML.toUpperCase().indexOf(filter) > -1)
+                    if(td[j].innerHTML.toString().indexOf(filter) > -1)
+                    {
+                        found=true;
+                    }
+                    else if(td[j].innerHTML.toUpperCase().indexOf(filter2) > -1)
                     {
                         found=true;
                     }
@@ -750,7 +750,7 @@ printBtn.addEventListener('click', function(){
 
       }
 
-    //  searchBtn1.addEventListener('click', (e) => {
+      //  searchBtn1.addEventListener('click', (e) => {
         
 
       //})
@@ -771,18 +771,23 @@ printBtn.addEventListener('click', function(){
                         });
         }
         else if(category2.value==1)
-        searchTable2("firstNameField");
+        searchTable2("bookingIDField");
        
         else if(category2.value==2)
-        searchTable2("lastNameField");
+        searchTable2("passNameField");
 
         else if(category2.value==3)
-        searchTable2("usernameField");
+        searchTable2("driNameField");
 
-        else if(category2.value=4)
-        searchTable2("emailField");
+        else if(category2.value==4)
+        searchTable2("timeField");
+        
+        else if(category2.value==5)
+        searchTable2("fareAmountField");
+
+        else if(category2.value=6)
+        searchTable2("statusField");
       }
-
 
 
     </script>
@@ -796,6 +801,7 @@ printBtn.addEventListener('click', function(){
       
     window.onunload = function () { null };
 </script>
+
 
     <!--
 <button class="actionBtn3" type="button"><img src="img/edit.png" style="height: 15px;"></button> 

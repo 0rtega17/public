@@ -21,6 +21,8 @@
     <!-- Custom styles for this page -->
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
+    <link rel="icon" href="img/logo2.png" type="image/x-icon"/>
+
 </head>
 <style>
     .tableview{         
@@ -43,7 +45,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard.html">
 
                 <div class="sidebar-brand-icon">
                     <img class="logo" src="img/logo.png" style="height:80px;" />
@@ -152,10 +154,67 @@
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
+                 <!-- Topbar Search -->
+                 <form
+                 class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                 <div class="input-group">
+                     <input type="text" class="form-control small" placeholder="Search"
+                         aria-label="Search" aria-describedby="basic-addon2" id="searchBar" style="width:200px; background-color: rgb(249, 249, 249); border: .2px solid rgb(4, 4, 4) ">
+                         <select class="custom-select" id="allCategory" style="width: 30%; border: .2px solid rgb(4, 4, 4)">
+                            <option selected>Choose...</option>
+                                <option value="1">Booking ID</option>
+                                <option value="2">Passenger's Name</option>
+                                <option value="3">Driver's Name</option>
+                                <option value="4">Date and Time</option>
+                                <option value="5">Fare Amount</option>
+                                <option value="6">Status</option>
+                            
+                          </select>
 
+                     <div class="input-group-append">
+                         <button class="btn btn-primary" type="button" id="searchBtn1" style="border: .2px solid rgb(4, 4, 4)">
+                             <i class="fas fa-search fa-sm"></i>
+                         </button>
+                     </div>
+                 </div>
+             </form>
 
-                    <!-- Topbar Navbar -->
-                    <ul class="navbar-nav ml-auto">
+             <!-- Topbar Navbar -->
+             <ul class="navbar-nav ml-auto">
+
+             <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+             <li class="nav-item dropdown no-arrow d-sm-none">
+                 <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                     <i class="fas fa-search fa-fw"></i>
+                 </a>
+                 <!-- Dropdown - Messages -->
+                 <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                     aria-labelledby="searchDropdown">
+                     <form class="form-inline mr-auto w-100 navbar-search">
+                         <div class="input-group">
+                             <input type="text" class="form-control bg-light small" placeholder="Search"
+                             aria-label="Search" aria-describedby="basic-addon2" id="searchBar2" style="border: .2px solid rgb(4, 4, 4)">
+                             <select class="custom-select" id="allCategory2" style="max-width: 30%; border: .2px solid rgb(4, 4, 4)">
+                                <option selected>Choose...</option>
+                                <option value="1">Booking ID</option>
+                                <option value="2">Passenger's Name</option>
+                                <option value="3">Driver's Name</option>
+                                <option value="4">Date and Time</option>
+                                <option value="5">Fare Amount</option>
+                                <option value="6">Status</option>
+                              </select>
+
+                         <div class="input-group-append">
+                             <button class="btn btn-primary" type="button" id="searchBtn2" style="border: .2px solid rgb(4, 4, 4)">
+                                 <i class="fas fa-search fa-sm"></i>
+                             </button>
+                             </div>
+                         </div>
+                     </form>
+                 </div>
+             </li>
+            
 
                         <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -410,6 +469,13 @@
             td6.innerHTML = fareAmount;
             td7.innerHTML = status;
 
+            td2.classList +="bookingIDField";
+            td3.classList +="passNameField";
+            td4.classList +="driNameField";
+            td5.classList +="timeField";
+            td6.classList +="fareAmountField";
+            td7.classList +="statusField";
+
           var actionDiv = document.createElement("div");
            // actionDiv.innerHTML = '<button data-toggle="modal" data-target="#modalTable" class="actionBtn3" type="button" onclick="FillTboxes(' + passNo + ')"><i class="fas fa-edit " style="color:black;"></i></button>';
          //   actionDiv.innerHTML += '<button class="actionBtn" type="button" onclick="archivedboxes(' + passNo + ')"><i class="fas fa-archive " style="color:black;"></i></button>';
@@ -565,28 +631,180 @@ $("#printDash").click(function(){
     })
 });
 
+var searchBar = document.getElementById("searchBar");
+      var searchBtn = document.getElementById("searchBtn1");
+      var category = document.getElementById("allCategory");
+      var tbody = document.getElementById("tbody1")
+
+      function searchTable(Category)
+      {
+            var filter = searchBar.value.toString();
+            var filter2 = searchBar.value.toUpperCase();
+            var tr = tbody.getElementsByTagName("tr");
+            var found;
+
+            for (let i = 0; i < tr.length; i++) {
+                var td = tr[i].getElementsByClassName(Category);
+                for (let j = 0; j < td.length; j++) {
+                    if(td[j].innerHTML.toString().indexOf(filter) > -1)
+                    {
+                        found=true;
+                    }
+                    else if(td[j].innerHTML.toUpperCase().indexOf(filter2) > -1)
+                    {
+                        found=true;
+                    }
+                    
+                }
+
+                if(found)
+                {
+                    tr[i].style.display="table-row";
+                    found=false;
+                }
+                else
+                {
+                    tr[i].style.display="none";
+                }
+                
+            }
+
+      }
+
+    //  searchBtn1.addEventListener('click', (e) => {
+        
+
+      //})
+
+      searchBtn1.onclick = function()
+
+      {
+        if(searchBar.value=="")
+        {
+            // searchTable("firstNameField");
+            swal({
+                            title: "Error!",
+                            text: "error",
+                            icon: "error",
+                            timer: 4000,
+                            showConfirmButton: false
+                            //button: "Try again",
+                        });
+        }
+        else if(category.value==1)
+        searchTable("bookingIDField");
+       
+        else if(category.value==2)
+        searchTable("passNameField");
+
+        else if(category.value==3)
+        searchTable("driNameField");
+
+        else if(category.value==4)
+        searchTable("timeField");
+        
+        else if(category.value==5)
+        searchTable("fareAmountField");
+
+        else if(category.value=6)
+        searchTable("statusField");
+      }
+
+
+      var searchBar2 = document.getElementById("searchBar2");
+      var searchBtn2 = document.getElementById("searchBtn2");
+      var category2 = document.getElementById("allCategory2");
+      var tbody2 = document.getElementById("tbody1")
+
+      function searchTable2(Category)
+      {
+            var filter = searchBar2.value.toString();
+            var filter2 = searchBar2.value.toUpperCase();
+            var tr2 = tbody2.getElementsByTagName("tr");
+            var found;
+
+            for (let i = 0; i < tr2.length; i++) {
+                var td = tr2[i].getElementsByClassName(Category);
+                for (let j = 0; j < td.length; j++) {
+                    if(td[j].innerHTML.toString().indexOf(filter) > -1)
+                    {
+                        found=true;
+                    }
+                    else if(td[j].innerHTML.toUpperCase().indexOf(filter2) > -1)
+                    {
+                        found=true;
+                    }
+                    
+                }
+
+                if(found)
+                {
+                    tr2[i].style.display="table-row";
+                    found=false;
+                }
+                else
+                {
+                    tr2[i].style.display="none";
+                }
+                
+            }
+
+      }
+
+      //  searchBtn1.addEventListener('click', (e) => {
+        
+
+      //})
+
+      searchBtn2.onclick = function()
+
+      {
+        if(searchBar2.value=="")
+        {
+            // searchTable("firstNameField");
+            swal({
+                            title: "Error!",
+                            text: "error",
+                            icon: "error",
+                            timer: 4000,
+                            showConfirmButton: false
+                            //button: "Try again",
+                        });
+        }
+        else if(category2.value==1)
+        searchTable2("bookingIDField");
+       
+        else if(category2.value==2)
+        searchTable2("passNameField");
+
+        else if(category2.value==3)
+        searchTable2("driNameField");
+
+        else if(category2.value==4)
+        searchTable2("timeField");
+        
+        else if(category2.value==5)
+        searchTable2("fareAmountField");
+
+        else if(category2.value=6)
+        searchTable2("statusField");
+      }
+
+
     </script>
 
-<script>
-    window.location.hash = "no-back-button";
-
-    // Again because Google Chrome doesn't insert
-    // the first hash into the history
-    window.location.hash = "Again-No-back-button"; 
-
-    window.onhashchange = function(){
-        window.location.hash = "no-back-button";
+<script type="text/javascript">
+    function preventBack() {
+        window.history.forward(); 
     }
+      
+    setTimeout("preventBack()", 0);
+      
+    window.onunload = function () { null };
 </script>
 
 
-
     <!--
-    
-           
-
-
-
 <button class="actionBtn3" type="button"><img src="img/edit.png" style="height: 15px;"></button> 
 <button class="actionBtn" type="button"><img src="img/eye.png" style="height: 15px;"></button> 
 <button class="actionBtn2" type="button"><img src="img/trash.png" style="height: 15px;"></button>

@@ -81,7 +81,7 @@
             </li>
 
             <!-- Divider -->
-            <hr class="sidebar-divider my-0">
+ 
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
@@ -176,19 +176,19 @@
                         <form
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search"
-                                aria-label="Search" aria-describedby="basic-addon2" id="searchBar" >
-                                <select class="custom-select" id="allCategory" style="max-width: 30%;">
+                            <input type="text" class="form-control small" placeholder="Search"
+                                aria-label="Search" aria-describedby="basic-addon2" id="searchBar" style="width:200px; background-color: rgb(249, 249, 249); border: .2px solid rgb(4, 4, 4) ">
+                                <select class="custom-select" id="allCategory" style="width: 30%; border: .2px solid rgb(4, 4, 4)">
                                    <option selected>Choose...</option>
                                    <option value="1">First Name</option>
                                    <option value="2">Last Name</option>
                                    <option value="3">Username</option>
                                    <option value="4">Email</option>
-                                   <option value="5">Mobile No.</option>
+                                   
                                  </select>
 
                             <div class="input-group-append">
-                                <button class="btn btn-primary" type="button" id="searchBtn1">
+                                <button class="btn btn-primary" type="button" id="searchBtn1" style="border: .2px solid rgb(4, 4, 4)">
                                     <i class="fas fa-search fa-sm"></i>
                                 </button>
                             </div>
@@ -204,24 +204,24 @@
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-search fa-fw"></i>
                         </a>
-                        <!-- Dropdown - Messages 
+                        <!-- Dropdown - Messages -->
                         <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
                             aria-labelledby="searchDropdown">
                             <form class="form-inline mr-auto w-100 navbar-search">
                                 <div class="input-group">
-                                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search"
-                                    aria-label="Search" aria-describedby="basic-addon2" id="searchBar" >
-                                    <select class="custom-select" id="allCategory" style="max-width: 30%;">
+                                    <input type="text" class="form-control bg-light small" placeholder="Search"
+                                    aria-label="Search" aria-describedby="basic-addon2" id="searchBar2" style="border: .2px solid rgb(4, 4, 4)">
+                                    <select class="custom-select" id="allCategory2" style="max-width: 30%; border: .2px solid rgb(4, 4, 4)">
                                        <option selected>Choose...</option>
                                        <option value="1">First Name</option>
                                        <option value="2">Last Name</option>
                                        <option value="3">Username</option>
                                        <option value="4">Email</option>
-                                       <option value="5">Mobile No.</option>
+                                     
                                      </select>
     
                                 <div class="input-group-append">
-                                    <button class="btn btn-primary" type="button" id="searchBtn1">
+                                    <button class="btn btn-primary" type="button" id="searchBtn2" style="border: .2px solid rgb(4, 4, 4)">
                                         <i class="fas fa-search fa-sm"></i>
                                     </button>
                                     </div>
@@ -229,7 +229,7 @@
                             </form>
                         </div>
                     </li>
-                   -->
+                   
 
 
                         <div class="topbar-divider d-none d-sm-block"></div>
@@ -299,9 +299,9 @@
                                             <th>Last Name</th>
                                             <th>Username</th>
                                             <th>Email</th>
-                                            <th>Mobile Number</th>
+                                            
 
-                                            <th id="actionDel" width="20%">Action</th>
+                                            <th id="actionDel" width="12%">Action</th>
                                         </tr>
                                     </thead>
 
@@ -674,7 +674,7 @@ aria-hidden="true">
             td3.classList +="lastNameField";
             td4.classList +="usernameField";
             td5.classList +="emailField";
-            td6.classList +="phoneNumField";
+           // td6.classList +="phoneNumField";
 
             var actionDiv = document.createElement("div");
             actionDiv.innerHTML = '<button data-toggle="modal" data-target="#modalTable" class="actionBtn3 notForPrinting" type="button" onclick="FillTboxes(' + passNo + ')"><i class="fas fa-edit " style="color:black;" data-toggle="tooltip" data-placement="top" title="Edit Life Points"></i></button>';
@@ -685,7 +685,7 @@ aria-hidden="true">
             trow.appendChild(td3);
             trow.appendChild(td4);
             trow.appendChild(td5);
-            trow.appendChild(td6);
+            //trow.appendChild(td6);
            // trow.appendChild(td7);
 
             tbody.appendChild(trow);
@@ -866,6 +866,75 @@ aria-hidden="true">
             // searchTable("firstNameField");
             swal({
                             title: "Error!",
+                            text: "Enter Value!",
+                            icon: "error",
+                            timer: 4000,
+                            showConfirmButton: false
+                            //button: "Try again",
+                        });
+        }
+        else if(category.value==1)
+        searchTable("firstNameField");
+       
+        else if(category.value==2)
+        searchTable("lastNameField");
+
+        else if(category.value==3)
+        searchTable("usernameField");
+
+        else if(category.value=4)
+        searchTable("emailField");
+      }
+
+
+      var searchBar = document.getElementById("searchBar2");
+      var searchBtn = document.getElementById("searchBtn2");
+      var category = document.getElementById("allCategory2");
+      var tbody = document.getElementById("tbody1")
+
+      function searchTable2(Category)
+      {
+            var filter = searchBar.value.toUpperCase();
+            var tr = tbody.getElementsByTagName("tr");
+            var found;
+
+            for (let i = 0; i < tr.length; i++) {
+                var td = tr[i].getElementsByClassName(Category);
+                for (let j = 0; j < td.length; j++) {
+                    if(td[j].innerHTML.toUpperCase().indexOf(filter) > -1)
+                    {
+                        found=true;
+                    }
+                    
+                }
+
+                if(found)
+                {
+                    tr[i].style.display="table-row";
+                    found=false;
+                }
+                else
+                {
+                    tr[i].style.display="none";
+                }
+                
+            }
+
+      }
+
+    //  searchBtn1.addEventListener('click', (e) => {
+        
+
+      //})
+
+      searchBtn2.onclick = function()
+
+      {
+        if(searchBar.value=="")
+        {
+            // searchTable("firstNameField");
+            swal({
+                            title: "Error!",
                             text: "error",
                             icon: "error",
                             timer: 4000,
@@ -884,9 +953,6 @@ aria-hidden="true">
 
         else if(category.value=4)
         searchTable("emailField");
-
-        else if(category.value==5)
-        searchTable("phoneNumField"); 
       }
 
     </script>

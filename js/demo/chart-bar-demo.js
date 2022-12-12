@@ -1,7 +1,9 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
 import { getDatabase, set, ref, push, child, onValue, get } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js";
-
+//import "https://www.jsdelivr.com/package/npm/chartjs-plugin-datalabels";
+//import 'chartjs-plugin-datalabels';
+//import ChartDataLabels from 'chartjs-plugin-datalabels';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -44,6 +46,7 @@ firebase.database().ref('All Ride Requests').once('value',
     // Set new default font family and font color to mimic Bootstrap's default styling
     Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
     Chart.defaults.global.defaultFontColor = '#858796';
+    //Chart.register(ChartDataLabels);
 
     function number_format(number, decimals, dec_point, thousands_sep) {
       // *     example: number_format(1234.56, 2, ',', ' ');
@@ -72,18 +75,40 @@ firebase.database().ref('All Ride Requests').once('value',
 
     // Bar Chart Example
     var ctx = document.getElementById("myBarChart");
+    
     var myBarChart = new Chart(ctx, {
+      
       type: 'bar',
       data: {
         labels: [...map.keys()],
         datasets: [{
-          label: "Bookings ",
+          label: "Number of Bookings ",
           backgroundColor: "#F3D849",
+          fontFamily: 'Monserrat',
           hoverBackgroundColor: "#F1E49C",
           borderColor: "#F3D849",
           data: [...map.values()],
         }],
       },
+      animation: {
+        duration: 1,
+        onComplete: function () {
+            var chartInstance = this.chart,
+                ctx = chartInstance.ctx;
+            ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'bottom';
+
+            this.data.datasets.forEach(function (dataset, i) {
+                var meta = chartInstance.controller.getDatasetMeta(i);
+                meta.data.forEach(function (bar, index) {
+                    var data = dataset.data[index];
+                    ctx.fillText(data, bar._model.x, bar._model.y - 5);
+                });
+            });
+        }
+    },
+   
       options: {
         maintainAspectRatio: false,
         layout: {
@@ -152,7 +177,7 @@ firebase.database().ref('All Ride Requests').once('value',
         },
         
         legend: {
-          display: false
+          display: true
         },
         tooltips: {
           titleMarginBottom: 10,
@@ -175,6 +200,7 @@ firebase.database().ref('All Ride Requests').once('value',
             }
           }
         },
+
         
       },
       
