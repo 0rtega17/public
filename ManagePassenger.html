@@ -186,6 +186,7 @@
                                    <option value="2">Last Name</option>
                                    <option value="3">Username</option>
                                    <option value="4">Email</option>
+                                   <option value="5">Life Points</option>
                                    
                                  </select>
 
@@ -219,7 +220,7 @@
                                        <option value="2">Last Name</option>
                                        <option value="3">Username</option>
                                        <option value="4">Email</option>
-                                     
+                                       <option value="5">Life Points</option>
                                      </select>
     
                                 <div class="input-group-append">
@@ -300,8 +301,8 @@
                                             <th>First Name</th>
                                             <th>Last Name</th>
                                             <th>Username</th>
-                                            <th>Email</th>
-                                            
+                                            <th width="20%">Email</th>
+                                            <th width="5%">Life Points</th>
 
                                             <th id="actionDel" width="12%">Action</th>
                                         </tr>
@@ -676,6 +677,7 @@ aria-hidden="true">
             td3.classList +="lastNameField";
             td4.classList +="usernameField";
             td5.classList +="emailField";
+            td8.classList +="lifePointsField";
            // td6.classList +="phoneNumField";
 
             var actionDiv = document.createElement("div");
@@ -687,7 +689,7 @@ aria-hidden="true">
             trow.appendChild(td3);
             trow.appendChild(td4);
             trow.appendChild(td5);
-            //trow.appendChild(td6);
+            trow.appendChild(td8);
            // trow.appendChild(td7);
 
             tbody.appendChild(trow);
@@ -828,6 +830,7 @@ aria-hidden="true">
       function searchTable(Category)
       {
             var filter = searchBar.value.toUpperCase();
+            var filter2 = searchBar.value.toString();
             var tr = tbody.getElementsByTagName("tr");
             var found;
 
@@ -838,6 +841,13 @@ aria-hidden="true">
                     {
                         found=true;
                     }
+
+                for (let j = 0; j < td.length; j++) {
+                    if(td[j].innerHTML.toUpperCase().indexOf(filter2) > -1)
+                    {
+                        found=true;
+                    }
+                }
                     
                 }
 
@@ -884,8 +894,11 @@ aria-hidden="true">
         else if(category.value==3)
         searchTable("usernameField");
 
-        else if(category.value=4)
+        else if(category.value==4)
         searchTable("emailField");
+
+        else if(category.value=5)
+        searchTable("lifePointsField");
       }
 
 
@@ -897,6 +910,7 @@ aria-hidden="true">
       function searchTable2(Category)
       {
             var filter = searchBar2.value.toUpperCase();
+            var filter2 = searchBar2.value.toString();
             var tr2 = tbody2.getElementsByTagName("tr");
             var found;
 
@@ -907,6 +921,12 @@ aria-hidden="true">
                     {
                         found=true;
                     }
+                    for (let j = 0; j < td.length; j++) {
+                    if(td[j].innerHTML.toUpperCase().indexOf(filter2) > -1)
+                    {
+                        found=true;
+                    }
+                }
                     
                 }
 
@@ -953,8 +973,11 @@ aria-hidden="true">
         else if(category2.value==3)
         searchTable2("usernameField");
 
-        else if(category2.value=4)
+        else if(category2.value==4)
         searchTable2("emailField");
+
+        else if(category2.value=5)
+        searchTable("lifePointsField");
       }
 
     </script>
