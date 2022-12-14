@@ -176,6 +176,14 @@
                              <i class="fas fa-search fa-sm"></i>
                          </button>
                      </div>
+                     <select class="custom-select" id="allStatus" style="width: 30%; border: .2px solid rgb(4, 4, 4)">
+                        <option selected>Choose...</option>
+                            <option value="1">Cancelled</option>
+                            <option value="2">Ended</option>
+                      </select>
+                      <button class="btn btn-primary" type="button" id="tryBtn" style="border: .2px solid rgb(4, 4, 4)">
+                        <i class="fas fa-search fa-sm"></i>
+                    </button>
                  </div>
              </form>
 
@@ -439,8 +447,35 @@
                 );
             });
         }
+        window.onload =  SelectAllData;
 
-        window.onload = SelectAllData;
+/*tryBtn.addEventListener('click', (e) => {
+        
+    function SelectCancel() {
+            document.getElementById('tbody1').innerHTML = "";
+            passNo = 0;
+            firebase.database().ref('All Ride Requests').orderByChild("status").equalTo("cancelled").on('value',
+            function(AllRecords)
+            {
+                AllRecords.forEach(
+                    function(CurrentRecord){
+                        var passengersName = CurrentRecord.val().name;
+                        var driversName = CurrentRecord.val().driverName;
+                        var time = CurrentRecord.val().time;
+                        var fareAmount = CurrentRecord.val().fareAmount;
+                        var status = CurrentRecord.val().status;
+                        
+                        var pID = CurrentRecord.key;
+                       AddItemsToTable(passengersName, driversName, time, fareAmount, status, pID);
+
+                    }
+                );
+            });
+        };
+        window.onload = SelectCancel;
+    })
+*/
+        
 
 
 
@@ -643,7 +678,7 @@ $("#printDash").click(function(){
             var found;
 
             for (let i = 0; i < tr.length; i++) {
-                var td = tr[i].getElementsByClassName(Category)[3];
+                var td = tr[i].getElementsByClassName(Category);
                 for (let j = 0; j < td.length; j++) {
                     if(td[j].innerHTML.toString().indexOf(filter) > -1)
                     {
@@ -787,6 +822,94 @@ $("#printDash").click(function(){
 
         else if(category2.value=6)
         searchTable2("statusField");
+      }
+      
+      //var passNo;
+
+      var searchBar = document.getElementById("searchBar");
+      var searchBtn = document.getElementById("searchBtn1");
+      var category = document.getElementById("allStatus");
+      var tbody = document.getElementById("tbody1")
+
+      firebase.database().ref('All Ride Requests').once('value',
+            function(AllRecords)
+            {
+                AllRecords.forEach(
+                    function(CurrentRecord){
+                        var status = CurrentRecord.val().status;
+                    })
+                })
+
+      function searchTable3(Category)
+      {
+
+            status == 'ended';
+            var filter = searchBar.value.toString();
+            var filter2 = searchBar.value.toUpperCase();
+            var tr = tbody.getElementsByTagName("tr");
+            var found;
+
+            for (let i = 0; i < tr.length; i++) {
+                var td = tr[i].getElementsByClassName(Category);
+                for (let j = 0; j < td.length; j++) {
+                    if(td[j].innerHTML.toString().indexOf(status) > -1)
+                    {
+                        found=true;
+                    }
+
+                }
+
+                if(found)
+                {
+                    tr[i].style.display="table-row";
+                    found=false;
+                }
+                else
+                {
+                    tr[i].style.display="none";
+                }
+                
+            }
+
+      }
+
+    //  searchBtn1.addEventListener('click', (e) => {
+        
+
+      //})
+
+      searchBtn1.onclick = function()
+
+      {
+        if(searchBar.value=="")
+        {
+            // searchTable("firstNameField");
+            swal({
+                            title: "Error!",
+                            text: "error",
+                            icon: "error",
+                            timer: 4000,
+                            showConfirmButton: false
+                            //button: "Try again",
+                        });
+        }
+        else if(category.value==1)
+        searchTable("bookingIDField");
+       
+        else if(category.value==2)
+        searchTable("passNameField");
+
+        else if(category.value==3)
+        searchTable("driNameField");
+
+        else if(category.value==4)
+        searchTable("timeField");
+        
+        else if(category.value==5)
+        searchTable("fareAmountField");
+
+        else if(category.value=6)
+        searchTable("statusField");
       }
 
 
